@@ -179,14 +179,17 @@
 
   .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px; }
 
-  .product-card {
+ .product-card {
     background: var(--card-bg); border-radius: var(--radius); overflow: hidden;
     box-shadow: var(--shadow); transition: var(--transition); cursor: pointer;
     position: relative; border: 1px solid var(--border);
     animation: fadeUp 0.5s ease both;
+    /* Adicionamos flexbox no card */
+    display: flex;
+    flex-direction: column;
+    height: 100%;
   }
   .product-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-hover); border-color: transparent; }
-
   .product-img-wrap { position: relative; height: 220px; overflow: hidden; background: var(--cream); }
   .product-img-wrap img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
   .product-card:hover .product-img-wrap img { transform: scale(1.06); }
@@ -194,7 +197,13 @@
   .badge-destaque { position: absolute; top: 12px; left: 12px; background: var(--gold); color: var(--deep); font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; padding: 4px 10px; border-radius: 50px; display: flex; align-items: center; gap: 4px; }
   .badge-desc { position: absolute; top: 12px; right: 12px; background: var(--rust); color: white; font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 50px; }
 
-  .product-body { padding: 18px 20px 20px; }
+ .product-body { 
+    padding: 18px 20px 20px; 
+    /* Adicionamos flexbox no corpo do card para ele crescer */
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1; 
+  }
   .product-cat { font-size: 11px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--sage); margin-bottom: 6px; }
   .product-name { font-family: 'Playfair Display', serif; font-size: 17px; font-weight: 600; line-height: 1.3; color: var(--charcoal); margin-bottom: 8px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
   .product-desc { font-size: 13px; color: var(--text-muted); line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; margin-bottom: 16px; }
@@ -204,11 +213,13 @@
   .price-old { font-size: 14px; color: var(--text-muted); text-decoration: line-through; }
   .price-parcel { font-size: 12px; color: var(--sage); font-weight: 500; margin-bottom: 16px; }
 
-  .btn-add-cart {
+.btn-add-cart {
     width: 100%; padding: 12px; background: var(--charcoal); color: white;
     border: none; border-radius: 50px; font-family: 'DM Sans', sans-serif;
     font-size: 14px; font-weight: 600; cursor: pointer; transition: var(--transition);
     display: flex; align-items: center; justify-content: center; gap: 8px;
+    /* A MÁGICA ACONTECE AQUI: empurra o botão para o fundo */
+    margin-top: auto;
   }
   .btn-add-cart:hover { background: var(--gold); color: var(--deep); transform: scale(1.02); }
   .btn-add-cart.added { background: var(--sage); }
