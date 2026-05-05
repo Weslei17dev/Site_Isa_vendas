@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meu Catálogo de Produtos</title>
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        #produtos-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .produto-card {
+            background-color: white;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: transform 0.2s;
+        }
+        .produto-card:hover {
+            transform: translateY(-5px);
+        }
+        .produto-card img {
+            max-width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+        .produto-nome {
+            font-size: 1.2em;
+            margin: 10px 0 5px;
+            color: #222;
+        }
+        .produto-preco {
+            font-weight: bold;
+            color: #27ae60;
+            font-size: 1.1em;
+        }
+        .produto-descricao {
+            font-size: 0.9em;
+            color: #666;
+            margin-top: 10px;
+        }
+        #erro-msg {
+            color: red;
+            text-align: center;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Catálogo de Produtos</h1>
+    <p id="erro-msg"></p>
+    <div id="produtos-container">
+        </div>
+
+    <script>
+        // Função para carregar e ler o arquivo Excel
+        async function carregarProdutos() {
+            try {
+                // Tenta buscar o arquivo Excel na mesma pasta
+                const response = await fetch('produtos.xlsx');
+                
+                if (!response.ok) {
+                    throw new Error("Não foi possível carregar o arquivo. Você está rodando um servidor local?");
+                }
+
+                const arrayBuffer = await response.arrayBuffer();
+                
+                // Lê os dados do Excel usando a biblioteca SheetJS
+                const workbook = XLSX.read(arrayBuffer, { type: 'array' });
+                const nomePrimeiraAba = workbook.SheetNames[0];
+                const planilha = workbook.Sheets[nomePrimeiraAba];
+                
+                // Converte a planilha para um array de objetos JavaScript
+                const produtos = XLSX.utils.sheet_to_json(planilha);
+                
+                renderizarProdutos(produtos);
+
+            } catch (error) {
+                console.error("Erro ao carregar os produtos:", error);
+                document.getElementById('erro-msg').innerText = "Erro ao carregar produtos. Lembre-se: é necessário abrir via Servidor Local (Live Server) e o arquivo deve se chamar 'produtos.xlsx'.";
+            }
+        }
+
+        // Função para criar o HTML de cada produto na tela
+        function renderizarProdutos(produtos) {
+            const container = document.getElementById('produtos-container');
+            container.innerHTML = ''; // Limpa o container
+
+            produtos.forEach(produto => {
+                const card = document.createElement('div');
+                card.className = 'produto-card';
+
+                // Verifica se as colunas existem (ajuste os nomes conforme sua planilha)
+                const nome = produto.Nome || "Sem nome";
+                const preco = produto.Preco || "R$ 0,00";
+                const descricao = produto.Descricao || "";
+                const imagem = produto.Imagem || "https://placehold.co/200x200?text=Sem+Imagem";
+
+                card.innerHTML = `
+                    <img src="${imagem}" alt="${nome}">
+                    <h2 class="produto-nome">${nome}</h2>
+                    <div class="produto-preco">${preco}</div>
+                    <p class="produto-descricao">${descricao}</p>
+                `;
+
+                container.appendChild(card);
+            });
+        }
+
+        // Executa a função quando a página carregar
+        carregarProdutos();
+    </script>
+</body>
+</html>

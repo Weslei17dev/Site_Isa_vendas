@@ -1,0 +1,1442 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ConfortMax — Estofados & Colchões</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<style>
+  :root {
+    --cream: #f5f0e8;
+    --warm-white: #fdfaf5;
+    --charcoal: #1c1c1e;
+    --deep: #0f0f12;
+    --gold: #c9a84c;
+    --gold-light: #e8c96a;
+    --rust: #c9623a;
+    --sage: #7a9e87;
+    --text-muted: #7a7570;
+    --border: #e5ddd0;
+    --card-bg: #ffffff;
+    --shadow: 0 4px 24px rgba(28,28,30,0.08);
+    --shadow-hover: 0 12px 48px rgba(28,28,30,0.16);
+    --radius: 16px;
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--warm-white);
+    color: var(--charcoal);
+    min-height: 100vh;
+  }
+
+  /* ── HEADER ─────────────────────────────── */
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(253, 250, 245, 0.95);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 24px;
+  }
+
+  .header-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    height: 72px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+  }
+
+  .logo {
+    display: flex;
+    flex-direction: column;
+    line-height: 1;
+    text-decoration: none;
+  }
+
+  .logo-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--charcoal);
+    letter-spacing: -0.5px;
+  }
+
+  .logo-name span { color: var(--gold); }
+
+  .logo-sub {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-top: 2px;
+  }
+
+  .header-search {
+    flex: 1;
+    max-width: 440px;
+    position: relative;
+  }
+
+  .header-search input {
+    width: 100%;
+    padding: 10px 16px 10px 44px;
+    border: 1.5px solid var(--border);
+    border-radius: 50px;
+    background: var(--cream);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    color: var(--charcoal);
+    outline: none;
+    transition: var(--transition);
+  }
+
+  .header-search input:focus {
+    border-color: var(--gold);
+    background: white;
+    box-shadow: 0 0 0 4px rgba(201,168,76,0.12);
+  }
+
+  .header-search input::placeholder { color: var(--text-muted); }
+
+  .search-icon {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-muted);
+    pointer-events: none;
+  }
+
+  .header-actions { display: flex; align-items: center; gap: 8px; }
+
+  .header-phone {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    border-radius: 50px;
+    text-decoration: none;
+    color: var(--charcoal);
+    font-size: 13px;
+    font-weight: 500;
+    background: var(--cream);
+    border: 1.5px solid var(--border);
+    transition: var(--transition);
+  }
+
+  .header-phone:hover { border-color: var(--sage); background: white; }
+
+  .cart-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 20px;
+    background: var(--charcoal);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    transition: var(--transition);
+    position: relative;
+  }
+
+  .cart-btn:hover { background: var(--gold); transform: translateY(-1px); }
+
+  .cart-count {
+    background: var(--rust);
+    color: white;
+    border-radius: 50px;
+    font-size: 11px;
+    font-weight: 700;
+    min-width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 5px;
+  }
+
+  /* ── HERO ─────────────────────────────── */
+  .hero {
+    background: var(--deep);
+    color: white;
+    padding: 80px 24px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 70% 80% at 60% 50%, rgba(201,168,76,0.15) 0%, transparent 70%),
+                radial-gradient(ellipse 40% 60% at 10% 80%, rgba(122,158,135,0.1) 0%, transparent 60%);
+  }
+
+  .hero-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(201,168,76,0.15);
+    border: 1px solid rgba(201,168,76,0.3);
+    color: var(--gold-light);
+    padding: 6px 14px;
+    border-radius: 50px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(36px, 5vw, 62px);
+    font-weight: 900;
+    line-height: 1.1;
+    letter-spacing: -1.5px;
+    margin-bottom: 20px;
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  .hero p {
+    font-size: 16px;
+    line-height: 1.7;
+    color: rgba(255,255,255,0.65);
+    max-width: 460px;
+    margin-bottom: 36px;
+  }
+
+  .hero-ctas { display: flex; gap: 14px; flex-wrap: wrap; }
+
+  .btn-primary {
+    padding: 14px 28px;
+    background: var(--gold);
+    color: var(--deep);
+    border: none;
+    border-radius: 50px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: var(--transition);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(201,168,76,0.35); }
+
+  .btn-ghost {
+    padding: 14px 28px;
+    background: transparent;
+    color: white;
+    border: 1.5px solid rgba(255,255,255,0.25);
+    border-radius: 50px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition);
+    text-decoration: none;
+  }
+
+  .btn-ghost:hover { border-color: white; background: rgba(255,255,255,0.08); }
+
+  .hero-stats {
+    display: flex;
+    gap: 32px;
+    margin-top: 48px;
+    padding-top: 32px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+  }
+
+  .stat { display: flex; flex-direction: column; gap: 4px; }
+  .stat-num { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 700; color: var(--gold); }
+  .stat-label { font-size: 12px; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 1px; }
+
+  .hero-visual {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .hero-img-wrap {
+    width: 100%;
+    max-width: 520px;
+    height: 380px;
+    border-radius: 24px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 32px 80px rgba(0,0,0,0.5);
+  }
+
+  .hero-img-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .hero-img-badge {
+    position: absolute;
+    bottom: -16px;
+    left: -16px;
+    background: white;
+    color: var(--charcoal);
+    padding: 16px 20px;
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+  }
+
+  .hero-img-badge strong { display: block; font-size: 18px; font-weight: 700; color: var(--rust); }
+  .hero-img-badge span { font-size: 12px; color: var(--text-muted); }
+
+  /* ── CATEGORIES NAV ─────────────────────────────── */
+  .categories-nav {
+    background: white;
+    border-bottom: 1px solid var(--border);
+    padding: 0 24px;
+    position: sticky;
+    top: 72px;
+    z-index: 90;
+  }
+
+  .cats-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    display: flex;
+    gap: 4px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    padding: 12px 0;
+  }
+
+  .cats-inner::-webkit-scrollbar { display: none; }
+
+  .cat-btn {
+    padding: 8px 20px;
+    border-radius: 50px;
+    border: 1.5px solid var(--border);
+    background: transparent;
+    color: var(--text-muted);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition);
+    white-space: nowrap;
+  }
+
+  .cat-btn:hover { border-color: var(--charcoal); color: var(--charcoal); }
+  .cat-btn.active { background: var(--charcoal); border-color: var(--charcoal); color: white; }
+
+  /* ── MAIN LAYOUT ─────────────────────────────── */
+  .main {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 48px 24px;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: 32px;
+    gap: 16px;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(24px, 3vw, 36px);
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    line-height: 1.2;
+  }
+
+  .section-title span { color: var(--gold); }
+
+  .section-count {
+    font-size: 13px;
+    color: var(--text-muted);
+    font-weight: 500;
+    white-space: nowrap;
+  }
+
+  /* ── PRODUCT GRID ─────────────────────────────── */
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 24px;
+  }
+
+  .product-card {
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+    cursor: pointer;
+    position: relative;
+    border: 1px solid var(--border);
+  }
+
+  .product-card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-hover);
+    border-color: transparent;
+  }
+
+  .product-img-wrap {
+    position: relative;
+    height: 220px;
+    overflow: hidden;
+    background: var(--cream);
+  }
+
+  .product-img-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+
+  .product-card:hover .product-img-wrap img { transform: scale(1.06); }
+
+  .badge-destaque {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background: var(--gold);
+    color: var(--deep);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 50px;
+  }
+
+  .badge-desc {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: var(--rust);
+    color: white;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 50px;
+  }
+
+  .product-body { padding: 18px 20px 20px; }
+
+  .product-cat {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--sage);
+    margin-bottom: 6px;
+  }
+
+  .product-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 17px;
+    font-weight: 600;
+    line-height: 1.3;
+    color: var(--charcoal);
+    margin-bottom: 8px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .product-desc {
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.5;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    margin-bottom: 16px;
+  }
+
+  .product-pricing {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+
+  .price-current {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--charcoal);
+  }
+
+  .price-old {
+    font-size: 14px;
+    color: var(--text-muted);
+    text-decoration: line-through;
+  }
+
+  .price-parcel {
+    font-size: 12px;
+    color: var(--sage);
+    font-weight: 500;
+    margin-bottom: 16px;
+  }
+
+  .btn-add-cart {
+    width: 100%;
+    padding: 12px;
+    background: var(--charcoal);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .btn-add-cart:hover { background: var(--gold); color: var(--deep); transform: scale(1.02); }
+  .btn-add-cart.added { background: var(--sage); }
+
+  /* ── LOADING ─────────────────────────────── */
+  .loading-state {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 80px 20px;
+  }
+
+  .spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid var(--border);
+    border-top-color: var(--gold);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    margin: 0 auto 16px;
+  }
+
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .empty-state {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 80px 20px;
+    color: var(--text-muted);
+  }
+
+  .empty-state svg { margin-bottom: 16px; opacity: 0.3; }
+  .empty-state h3 { font-family: 'Playfair Display', serif; font-size: 24px; color: var(--charcoal); margin-bottom: 8px; }
+
+  /* ── ERROR NOTICE ─────────────────────────────── */
+  .notice {
+    background: #fff8e8;
+    border: 1.5px solid var(--gold);
+    border-radius: 12px;
+    padding: 16px 20px;
+    margin-bottom: 32px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 14px;
+    color: #7a5f20;
+  }
+
+  .notice.hidden { display: none; }
+
+  /* ── CART DRAWER ─────────────────────────────── */
+  .cart-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(15,15,18,0.6);
+    z-index: 200;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    backdrop-filter: blur(4px);
+  }
+
+  .cart-overlay.open { opacity: 1; pointer-events: all; }
+
+  .cart-drawer {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    width: 420px;
+    max-width: 100vw;
+    background: white;
+    box-shadow: -8px 0 48px rgba(0,0,0,0.15);
+    z-index: 210;
+    transform: translateX(100%);
+    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .cart-drawer.open { transform: translateX(0); }
+
+  .cart-header {
+    padding: 24px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .cart-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 700;
+  }
+
+  .cart-close {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 1.5px solid var(--border);
+    background: transparent;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+    font-size: 18px;
+    color: var(--text-muted);
+  }
+
+  .cart-close:hover { background: var(--charcoal); color: white; border-color: var(--charcoal); }
+
+  .cart-items { flex: 1; overflow-y: auto; padding: 16px; display: flex; flex-direction: column; gap: 12px; }
+
+  .cart-empty {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    color: var(--text-muted);
+    padding: 40px;
+  }
+
+  .cart-empty svg { opacity: 0.25; }
+  .cart-empty p { font-size: 15px; text-align: center; }
+
+  .cart-item {
+    display: flex;
+    gap: 14px;
+    padding: 14px;
+    background: var(--cream);
+    border-radius: 12px;
+    animation: slideIn 0.2s ease;
+  }
+
+  @keyframes slideIn { from { opacity: 0; transform: translateX(20px); } }
+
+  .cart-item-img {
+    width: 72px;
+    height: 72px;
+    border-radius: 10px;
+    object-fit: cover;
+    flex-shrink: 0;
+  }
+
+  .cart-item-info { flex: 1; min-width: 0; }
+
+  .cart-item-name {
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 1.3;
+    color: var(--charcoal);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .cart-item-price {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--charcoal);
+    margin-top: 4px;
+  }
+
+  .cart-item-controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 8px;
+  }
+
+  .qty-btn {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    border: 1.5px solid var(--border);
+    background: white;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+    color: var(--charcoal);
+  }
+
+  .qty-btn:hover { background: var(--charcoal); color: white; border-color: var(--charcoal); }
+
+  .qty-num { font-weight: 700; font-size: 14px; min-width: 20px; text-align: center; }
+
+  .item-remove {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--text-muted);
+    font-size: 16px;
+    padding: 4px;
+    transition: var(--transition);
+    margin-left: auto;
+    align-self: flex-start;
+  }
+
+  .item-remove:hover { color: var(--rust); }
+
+  .cart-footer {
+    padding: 20px 24px;
+    border-top: 1px solid var(--border);
+    background: white;
+  }
+
+  .cart-subtotal {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+    font-size: 14px;
+    color: var(--text-muted);
+  }
+
+  .cart-total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+
+  .cart-total-label {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 700;
+  }
+
+  .cart-total-value {
+    font-family: 'Playfair Display', serif;
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--charcoal);
+  }
+
+  .btn-whatsapp {
+    width: 100%;
+    padding: 16px;
+    background: #25D366;
+    color: white;
+    border: none;
+    border-radius: 50px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .btn-whatsapp:hover { background: #128C7E; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(37,211,102,0.4); }
+  .btn-whatsapp:disabled { background: var(--border); color: var(--text-muted); cursor: not-allowed; transform: none; box-shadow: none; }
+
+  .cart-note {
+    font-size: 11px;
+    color: var(--text-muted);
+    text-align: center;
+    margin-top: 10px;
+  }
+
+  /* ── FEATURES ─────────────────────────────── */
+  .features {
+    background: var(--deep);
+    color: white;
+    padding: 60px 24px;
+    margin-top: 80px;
+  }
+
+  .features-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 40px;
+  }
+
+  .feature-item { display: flex; flex-direction: column; gap: 12px; }
+
+  .feature-icon {
+    width: 48px;
+    height: 48px;
+    background: rgba(201,168,76,0.15);
+    border: 1px solid rgba(201,168,76,0.3);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+  }
+
+  .feature-title { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 600; }
+  .feature-desc { font-size: 14px; color: rgba(255,255,255,0.5); line-height: 1.6; }
+
+  /* ── FOOTER ─────────────────────────────── */
+  footer {
+    background: var(--charcoal);
+    color: white;
+    padding: 48px 24px 32px;
+  }
+
+  .footer-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 48px;
+    padding-bottom: 32px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+
+  .footer-brand p { font-size: 14px; color: rgba(255,255,255,0.5); line-height: 1.7; margin-top: 12px; max-width: 300px; }
+
+  .footer-col h4 { font-weight: 600; font-size: 14px; letter-spacing: 1px; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; }
+  .footer-col a { display: block; font-size: 14px; color: rgba(255,255,255,0.5); text-decoration: none; margin-bottom: 8px; transition: var(--transition); }
+  .footer-col a:hover { color: white; }
+
+  .footer-bottom {
+    max-width: 1280px;
+    margin: 24px auto 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 13px;
+    color: rgba(255,255,255,0.35);
+  }
+
+  /* ── FLOATING WHATSAPP ─────────────────────────────── */
+  .float-wa {
+    position: fixed;
+    bottom: 28px;
+    right: 28px;
+    width: 60px;
+    height: 60px;
+    background: #25D366;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 24px rgba(37,211,102,0.5);
+    z-index: 150;
+    text-decoration: none;
+    transition: var(--transition);
+    animation: pulse-wa 2.5s infinite;
+  }
+
+  .float-wa:hover { transform: scale(1.1); }
+
+  @keyframes pulse-wa {
+    0%, 100% { box-shadow: 0 8px 24px rgba(37,211,102,0.5); }
+    50% { box-shadow: 0 8px 40px rgba(37,211,102,0.7), 0 0 0 10px rgba(37,211,102,0.1); }
+  }
+
+  /* ── RESPONSIVE ─────────────────────────────── */
+  @media (max-width: 768px) {
+    .hero-inner { grid-template-columns: 1fr; gap: 40px; }
+    .hero-visual { display: none; }
+    .hero-stats { flex-wrap: wrap; gap: 20px; }
+    .footer-inner { grid-template-columns: 1fr; gap: 32px; }
+    .footer-bottom { flex-direction: column; gap: 8px; text-align: center; }
+    .header-phone { display: none; }
+    .header-search { display: none; }
+  }
+
+  @media (max-width: 480px) {
+    .cart-drawer { width: 100vw; }
+    .products-grid { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
+  }
+
+  /* ── PRODUCT CARD ANIMATION ─────────────────────────────── */
+  .product-card {
+    animation: fadeUp 0.5s ease both;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .toast {
+    position: fixed;
+    bottom: 100px;
+    right: 28px;
+    background: var(--charcoal);
+    color: white;
+    padding: 12px 20px;
+    border-radius: 50px;
+    font-size: 14px;
+    font-weight: 600;
+    z-index: 300;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.3s ease;
+    pointer-events: none;
+  }
+
+  .toast.show { opacity: 1; transform: translateY(0); }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="header-inner">
+    <a class="logo" href="#">
+      <span class="logo-name">Confort<span>Max</span></span>
+      <span class="logo-sub">Estofados & Colchões</span>
+    </a>
+
+    <div class="header-search">
+      <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <input type="text" id="searchInput" placeholder="Buscar produtos..." oninput="filterProducts()">
+    </div>
+
+    <div class="header-actions">
+      <a class="header-phone" href="https://wa.me/5543999999999" target="_blank">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.126.553 4.122 1.523 5.856L0 24l6.306-1.497A11.96 11.96 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.887 0-3.65-.484-5.19-1.335l-.37-.22-3.847.913.95-3.742-.241-.385A9.96 9.96 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+        (43) 99999-9999
+      </a>
+
+      <button class="cart-btn" onclick="toggleCart()">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+        Carrinho
+        <span class="cart-count" id="cartCount">0</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-content">
+      <div class="hero-badge">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        Qualidade Premium Garantida
+      </div>
+      <h1>Conforto que você <em>merece</em> em cada detalhe</h1>
+      <p>Estofados artesanais, colchões de alta durabilidade e peças exclusivas para transformar sua casa em um refúgio de bem-estar.</p>
+      <div class="hero-ctas">
+        <a href="#produtos" class="btn-primary">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/></svg>
+          Ver Produtos
+        </a>
+        <a href="https://wa.me/5543999999999" target="_blank" class="btn-ghost">Falar no WhatsApp</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat"><span class="stat-num">15+</span><span class="stat-label">Anos no mercado</span></div>
+        <div class="stat"><span class="stat-num">5mil+</span><span class="stat-label">Clientes satisfeitos</span></div>
+        <div class="stat"><span class="stat-num">100%</span><span class="stat-label">Garantia de qualidade</span></div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-img-wrap">
+        <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=800&q=80" alt="Sofá premium">
+      </div>
+      <div class="hero-img-badge">
+        <strong>Frete Grátis</strong>
+        <span>Para sua cidade</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CATEGORIES NAV -->
+<nav class="categories-nav">
+  <div class="cats-inner" id="catsContainer">
+    <button class="cat-btn active" onclick="filterCat('todos', this)">Todos</button>
+  </div>
+</nav>
+
+<!-- MAIN -->
+<main class="main" id="produtos">
+  <div class="notice" id="excelNotice">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+    <span id="noticeText">Carregando produtos da planilha <strong>produtos.xlsx</strong>...</span>
+  </div>
+
+  <div class="section-header">
+    <div>
+      <p style="font-size:12px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--sage);margin-bottom:4px">Nosso Catálogo</p>
+      <h2 class="section-title">Produtos em <span>Destaque</span></h2>
+    </div>
+    <span class="section-count" id="productCount">Carregando...</span>
+  </div>
+
+  <div class="products-grid" id="productsGrid">
+    <div class="loading-state">
+      <div class="spinner"></div>
+      <p style="color:var(--text-muted);font-size:15px">Carregando produtos...</p>
+    </div>
+  </div>
+</main>
+
+<!-- FEATURES -->
+<section class="features">
+  <div class="features-inner">
+    <div class="feature-item">
+      <div class="feature-icon">🚚</div>
+      <h3 class="feature-title">Entrega e Montagem</h3>
+      <p class="feature-desc">Entregamos e montamos em sua casa sem custo adicional para a região.</p>
+    </div>
+    <div class="feature-item">
+      <div class="feature-icon">🛡️</div>
+      <h3 class="feature-title">Garantia de Qualidade</h3>
+      <p class="feature-desc">Todos os produtos com garantia de fábrica e suporte pós-venda.</p>
+    </div>
+    <div class="feature-item">
+      <div class="feature-icon">✂️</div>
+      <h3 class="feature-title">Sob Medida</h3>
+      <p class="feature-desc">Fabricamos peças personalizadas conforme seu espaço e gosto.</p>
+    </div>
+    <div class="feature-item">
+      <div class="feature-icon">💬</div>
+      <h3 class="feature-title">Atendimento Direto</h3>
+      <p class="feature-desc">Fale diretamente com nossa equipe via WhatsApp para tirar dúvidas.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <span style="font-family:'Playfair Display',serif;font-size:22px;font-weight:700">Confort<span style="color:var(--gold)">Max</span></span>
+      <p>Há mais de 15 anos trazendo qualidade, conforto e beleza para os lares da região. Estofados artesanais e colchões de alta durabilidade.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Categorias</h4>
+      <a href="#" onclick="filterCat('Sofás',null)">Sofás</a>
+      <a href="#" onclick="filterCat('Colchões',null)">Colchões</a>
+      <a href="#" onclick="filterCat('Poltronas',null)">Poltronas</a>
+      <a href="#" onclick="filterCat('Cabeceiras',null)">Cabeceiras</a>
+      <a href="#" onclick="filterCat('Camas e Box',null)">Camas e Box</a>
+    </div>
+    <div class="footer-col">
+      <h4>Contato</h4>
+      <a href="https://wa.me/5543999999999" target="_blank">📱 (43) 99999-9999</a>
+      <a href="#">📍 Arapongas, PR</a>
+      <a href="#">🕐 Seg–Sáb: 8h–18h</a>
+      <a href="#">📧 contato@confortmax.com.br</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2024 ConfortMax Estofados & Colchões. Todos os direitos reservados.</span>
+    <span>Desenvolvido com ❤️</span>
+  </div>
+</footer>
+
+<!-- FLOATING WHATSAPP -->
+<a class="float-wa" href="https://wa.me/5543999999999" target="_blank" title="Falar no WhatsApp">
+  <svg width="28" height="28" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.126.553 4.122 1.523 5.856L0 24l6.306-1.497A11.96 11.96 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.887 0-3.65-.484-5.19-1.335l-.37-.22-3.847.913.95-3.742-.241-.385A9.96 9.96 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+</a>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<!-- CART OVERLAY -->
+<div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
+
+<!-- CART DRAWER -->
+<div class="cart-drawer" id="cartDrawer">
+  <div class="cart-header">
+    <h2 class="cart-title">Meu Carrinho 🛒</h2>
+    <button class="cart-close" onclick="toggleCart()">✕</button>
+  </div>
+
+  <div class="cart-items" id="cartItems">
+    <div class="cart-empty" id="cartEmpty">
+      <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+      <p>Seu carrinho está vazio.<br>Adicione produtos para começar!</p>
+    </div>
+  </div>
+
+  <div class="cart-footer">
+    <div class="cart-subtotal">
+      <span id="cartItemsCount">0 itens</span>
+      <span></span>
+    </div>
+    <div class="cart-total">
+      <span class="cart-total-label">Total</span>
+      <span class="cart-total-value" id="cartTotal">R$ 0,00</span>
+    </div>
+    <button class="btn-whatsapp" id="checkoutBtn" onclick="sendToWhatsApp()" disabled>
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.126.553 4.122 1.523 5.856L0 24l6.306-1.497A11.96 11.96 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.887 0-3.65-.484-5.19-1.335l-.37-.22-3.847.913.95-3.742-.241-.385A9.96 9.96 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+      Finalizar pelo WhatsApp
+    </button>
+    <p class="cart-note">Você será redirecionado para o WhatsApp com seu pedido completo.</p>
+  </div>
+</div>
+
+<script>
+// ── CONFIGURAÇÃO ──────────────────────────────────────────
+const WHATSAPP_NUMBER = '5543999999999'; // ← TROQUE pelo seu número (com DDI e DDD, sem espaços ou +)
+const EXCEL_FILE = 'produtos.xlsx';      // ← Nome do arquivo Excel (na mesma pasta)
+
+// ── ESTADO ────────────────────────────────────────────────
+let allProducts = [];
+let cart = [];
+let currentCat = 'todos';
+let searchTerm = '';
+
+// ── CARREGAR EXCEL ─────────────────────────────────────────
+async function loadProducts() {
+  try {
+    const res = await fetch(EXCEL_FILE + '?t=' + Date.now());
+    if (!res.ok) throw new Error('Arquivo não encontrado');
+    
+    const buffer = await res.arrayBuffer();
+    const wb = XLSX.read(buffer, { type: 'array' });
+    const ws = wb.Sheets['Produtos'];
+    
+    if (!ws) throw new Error('Aba "Produtos" não encontrada');
+    
+    const rows = XLSX.utils.sheet_to_json(ws, { defval: '' });
+    
+    allProducts = rows
+      .filter(r => String(r.disponivel || '').toUpperCase() === 'SIM')
+      .map(r => ({
+        id: r.id,
+        nome: r.nome || '',
+        categoria: r.categoria || '',
+        preco: parseFloat(r.preco) || 0,
+        precoAntigo: parseFloat(r.preco_antigo) || 0,
+        descricao: r.descricao || '',
+        imagem: r.imagem_url || 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=600',
+        destaque: String(r.destaque || '').toUpperCase() === 'SIM',
+      }));
+
+    buildCategoryNav();
+    renderProducts();
+    hideNotice();
+
+  } catch (err) {
+    console.warn('Erro ao carregar Excel:', err);
+    showNoticeError(err.message);
+    renderFallback();
+  }
+}
+
+function hideNotice() {
+  document.getElementById('excelNotice').classList.add('hidden');
+}
+
+function showNoticeError(msg) {
+  const notice = document.getElementById('excelNotice');
+  notice.style.borderColor = '#c9623a';
+  notice.style.background = '#fff5f0';
+  document.getElementById('noticeText').innerHTML = 
+    `⚠️ Não foi possível carregar <strong>${EXCEL_FILE}</strong>. Certifique-se que o arquivo está na mesma pasta do site e abra via servidor local. <em style="font-size:12px;color:#7a7570">(${msg})</em>`;
+}
+
+// ── CATEGORIAS ─────────────────────────────────────────────
+function buildCategoryNav() {
+  const cats = ['todos', ...new Set(allProducts.map(p => p.categoria).filter(Boolean))];
+  const container = document.getElementById('catsContainer');
+  container.innerHTML = '';
+  
+  cats.forEach(cat => {
+    const btn = document.createElement('button');
+    btn.className = 'cat-btn' + (cat === 'todos' ? ' active' : '');
+    btn.textContent = cat === 'todos' ? 'Todos' : cat;
+    btn.onclick = () => filterCat(cat, btn);
+    container.appendChild(btn);
+  });
+}
+
+function filterCat(cat, btn) {
+  currentCat = cat;
+  document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  else {
+    document.querySelectorAll('.cat-btn').forEach(b => {
+      if ((b.textContent === 'Todos' && cat === 'todos') || b.textContent === cat) b.classList.add('active');
+    });
+  }
+  document.getElementById('productsGrid').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  renderProducts();
+}
+
+function filterProducts() {
+  searchTerm = document.getElementById('searchInput').value.toLowerCase();
+  renderProducts();
+}
+
+// ── RENDERIZAR PRODUTOS ─────────────────────────────────────
+function renderProducts() {
+  const grid = document.getElementById('productsGrid');
+  
+  let filtered = allProducts.filter(p => {
+    const matchCat = currentCat === 'todos' || p.categoria === currentCat;
+    const matchSearch = !searchTerm || 
+      p.nome.toLowerCase().includes(searchTerm) ||
+      p.descricao.toLowerCase().includes(searchTerm) ||
+      p.categoria.toLowerCase().includes(searchTerm);
+    return matchCat && matchSearch;
+  });
+
+  document.getElementById('productCount').textContent = 
+    `${filtered.length} produto${filtered.length !== 1 ? 's' : ''} encontrado${filtered.length !== 1 ? 's' : ''}`;
+
+  if (!filtered.length) {
+    grid.innerHTML = `
+      <div class="empty-state">
+        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <h3>Nenhum produto encontrado</h3>
+        <p style="color:var(--text-muted)">Tente outra categoria ou termo de busca.</p>
+      </div>`;
+    return;
+  }
+
+  grid.innerHTML = filtered.map((p, i) => cardHTML(p, i)).join('');
+}
+
+function cardHTML(p, i) {
+  const descPct = p.precoAntigo > p.preco ? Math.round((1 - p.preco / p.precoAntigo) * 100) : 0;
+  const parcel = Math.round(p.preco / 12 * 100) / 100;
+  
+  return `
+    <div class="product-card" style="animation-delay:${i * 60}ms">
+      <div class="product-img-wrap">
+        <img src="${p.imagem}" alt="${p.nome}" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=600'">
+        ${p.destaque ? '<span class="badge-destaque">⭐ Destaque</span>' : ''}
+        ${descPct > 0 ? `<span class="badge-desc">-${descPct}%</span>` : ''}
+      </div>
+      <div class="product-body">
+        <p class="product-cat">${p.categoria}</p>
+        <h3 class="product-name">${p.nome}</h3>
+        <p class="product-desc">${p.descricao}</p>
+        <div class="product-pricing">
+          <span class="price-current">${formatBRL(p.preco)}</span>
+          ${p.precoAntigo > p.preco ? `<span class="price-old">${formatBRL(p.precoAntigo)}</span>` : ''}
+        </div>
+        <p class="price-parcel">ou 12x de ${formatBRL(parcel)} sem juros no cartão</p>
+        <button class="btn-add-cart" id="btn-${p.id}" onclick="addToCart(${JSON.stringify(p).replace(/"/g, '&quot;')})">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+          Adicionar ao Carrinho
+        </button>
+      </div>
+    </div>`;
+}
+
+// ── CARRINHO ───────────────────────────────────────────────
+function addToCart(product) {
+  const existing = cart.find(i => i.id === product.id);
+  if (existing) {
+    existing.qty += 1;
+  } else {
+    cart.push({ ...product, qty: 1 });
+  }
+  updateCartUI();
+  showToast(`✓ ${product.nome.substring(0, 30)}... adicionado!`);
+  
+  const btn = document.getElementById('btn-' + product.id);
+  if (btn) {
+    btn.classList.add('added');
+    btn.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Adicionado!`;
+    setTimeout(() => {
+      btn.classList.remove('added');
+      btn.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg> Adicionar ao Carrinho`;
+    }, 1800);
+  }
+}
+
+function changeQty(id, delta) {
+  const item = cart.find(i => i.id === id);
+  if (!item) return;
+  item.qty += delta;
+  if (item.qty <= 0) cart = cart.filter(i => i.id !== id);
+  updateCartUI();
+}
+
+function removeItem(id) {
+  cart = cart.filter(i => i.id !== id);
+  updateCartUI();
+}
+
+function updateCartUI() {
+  const total = cart.reduce((s, i) => s + i.preco * i.qty, 0);
+  const count = cart.reduce((s, i) => s + i.qty, 0);
+  
+  document.getElementById('cartCount').textContent = count;
+  document.getElementById('cartTotal').textContent = formatBRL(total);
+  document.getElementById('cartItemsCount').textContent = `${count} item${count !== 1 ? 's' : ''}`;
+  document.getElementById('checkoutBtn').disabled = cart.length === 0;
+  
+  const container = document.getElementById('cartItems');
+  const empty = document.getElementById('cartEmpty');
+  
+  if (cart.length === 0) {
+    container.innerHTML = '';
+    container.appendChild(empty);
+    empty.style.display = 'flex';
+  } else {
+    empty.style.display = 'none';
+    
+    const existing = container.querySelector('.cart-items-list');
+    const list = existing || document.createElement('div');
+    list.className = 'cart-items-list';
+    list.style.cssText = 'display:flex;flex-direction:column;gap:12px;width:100%';
+    
+    list.innerHTML = cart.map(item => `
+      <div class="cart-item">
+        <img class="cart-item-img" src="${item.imagem}" alt="${item.nome}" onerror="this.src='https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=600'">
+        <div class="cart-item-info">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px">
+            <p class="cart-item-name">${item.nome}</p>
+            <button class="item-remove" onclick="removeItem(${item.id})">✕</button>
+          </div>
+          <p class="cart-item-price">${formatBRL(item.preco)}</p>
+          <div class="cart-item-controls">
+            <button class="qty-btn" onclick="changeQty(${item.id}, -1)">−</button>
+            <span class="qty-num">${item.qty}</span>
+            <button class="qty-btn" onclick="changeQty(${item.id}, 1)">+</button>
+            <span style="font-size:13px;color:var(--text-muted);margin-left:8px">${formatBRL(item.preco * item.qty)}</span>
+          </div>
+        </div>
+      </div>
+    `).join('');
+    
+    if (!existing) container.appendChild(list);
+  }
+}
+
+function toggleCart() {
+  const overlay = document.getElementById('cartOverlay');
+  const drawer = document.getElementById('cartDrawer');
+  overlay.classList.toggle('open');
+  drawer.classList.toggle('open');
+  document.body.style.overflow = drawer.classList.contains('open') ? 'hidden' : '';
+}
+
+// ── WHATSAPP ───────────────────────────────────────────────
+function sendToWhatsApp() {
+  if (cart.length === 0) return;
+  
+  const total = cart.reduce((s, i) => s + i.preco * i.qty, 0);
+  
+  let msg = `🛋️ *PEDIDO — ConfortMax Estofados*\n\n`;
+  msg += `Olá! Gostaria de finalizar o seguinte pedido:\n\n`;
+  
+  cart.forEach((item, idx) => {
+    msg += `*${idx + 1}. ${item.nome}*\n`;
+    msg += `   Quantidade: ${item.qty}x\n`;
+    msg += `   Preço unit.: ${formatBRL(item.preco)}\n`;
+    msg += `   Subtotal: ${formatBRL(item.preco * item.qty)}\n\n`;
+  });
+  
+  msg += `━━━━━━━━━━━━━━━━━━━━\n`;
+  msg += `🛒 *TOTAL DO PEDIDO: ${formatBRL(total)}*\n`;
+  msg += `━━━━━━━━━━━━━━━━━━━━\n\n`;
+  msg += `Aguardo confirmação de disponibilidade e prazo de entrega. Obrigado! 😊`;
+  
+  const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
+  window.open(url, '_blank');
+}
+
+// ── HELPERS ────────────────────────────────────────────────
+function formatBRL(val) {
+  return val.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+// ── FALLBACK (sem servidor) ────────────────────────────────
+function renderFallback() {
+  // Mantém produtos de demonstração caso o Excel não carregue
+  allProducts = [
+    { id: 1, nome: "Sofá Retrátil 3 Lugares Premium", categoria: "Sofás", preco: 2890, precoAntigo: 3490, descricao: "Sofá retrátil e reclinável com tecido suede importado, espuma D33, pés em madeira maciça.", imagem: "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=600", destaque: true },
+    { id: 2, nome: "Sofá Canto L Grande", categoria: "Sofás", preco: 4290, precoAntigo: 5200, descricao: "Sofá canto formato L com chaise, tecido veludo premium, 7 lugares.", imagem: "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=600", destaque: true },
+    { id: 3, nome: "Colchão Molas Ensacadas King Size", categoria: "Colchões", preco: 3190, precoAntigo: 3800, descricao: "Colchão com sistema de molas ensacadas, pillow top duplo, espuma viscoelástica. King 193x203cm.", imagem: "https://images.unsplash.com/photo-1631157769375-11e148452a97?w=600", destaque: true },
+    { id: 4, nome: "Poltrona Massageadora Recliner", categoria: "Poltronas", preco: 1890, precoAntigo: 2290, descricao: "Poltrona reclinável com função massagem, couro ecológico premium.", imagem: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=600", destaque: false },
+    { id: 5, nome: "Colchão Casal Ortopédico D45", categoria: "Colchões", preco: 1290, precoAntigo: 0, descricao: "Colchão ortopédico casal espuma D45 alta densidade, 138x188cm.", imagem: "https://images.unsplash.com/photo-1631157769375-11e148452a97?w=600", destaque: false },
+    { id: 6, nome: "Sofá 2 Lugares Veludo", categoria: "Sofás", preco: 1490, precoAntigo: 1890, descricao: "Sofá 2 lugares em veludo azul royal, pés dourados em metal, espuma D33.", imagem: "https://images.unsplash.com/photo-1540574163026-643ea20ade25?w=600", destaque: false },
+  ];
+  buildCategoryNav();
+  renderProducts();
+}
+
+// ── INIT ───────────────────────────────────────────────────
+loadProducts();
+updateCartUI();
+</script>
+</body>
+</html>
