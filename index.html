@@ -149,6 +149,16 @@
   }
   .btn-ghost:hover { border-color: white; background: rgba(255,255,255,0.08); }
 
+  /* Estilo escuro para o botão Ver Mais */
+  .btn-ghost.btn-dark {
+    color: var(--charcoal);
+    border-color: var(--charcoal);
+  }
+  .btn-ghost.btn-dark:hover {
+    background: var(--charcoal);
+    color: white;
+  }
+
   .hero-stats { display: flex; gap: 32px; margin-top: 48px; padding-top: 32px; border-top: 1px solid rgba(255,255,255,0.1); }
   .stat { display: flex; flex-direction: column; gap: 4px; }
   .stat-num { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 700; color: var(--gold); }
@@ -880,6 +890,45 @@
     70% { box-shadow: 0 0 0 15px rgba(201,168,76,0); }
     100% { box-shadow: 0 0 0 0 rgba(201,168,76,0); }
   }
+
+
+  /* ── PRODUCT MODAL ─────────────────────────────── */
+  .product-modal-overlay {
+    position: fixed; inset: 0; background: rgba(15,15,18,0.7);
+    z-index: 300; display: none; align-items: center; justify-content: center;
+    backdrop-filter: blur(8px); padding: 20px; animation: fadeIn 0.3s ease;
+  }
+  
+  .product-modal-card {
+    background: white; width: 100%; max-width: 900px; border-radius: 24px;
+    position: relative; overflow: hidden; animation: zoomIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .modal-close {
+    position: absolute; top: 20px; right: 20px; width: 40px; height: 40px;
+    border-radius: 50%; border: 1px solid var(--border); background: white;
+    cursor: pointer; display: flex; align-items: center; justify-content: center;
+    z-index: 10; transition: var(--transition);
+  }
+  .modal-close:hover { background: var(--charcoal); color: white; }
+
+  .modal-content-grid { display: grid; grid-template-columns: 1.2fr 1fr; }
+
+  .modal-image-side { background: var(--cream); height: 500px; }
+  .modal-image-side img { width: 100%; height: 100%; object-fit: cover; }
+
+  .modal-info-side { padding: 40px; display: flex; flex-direction: column; }
+  .modal-description { font-size: 15px; color: var(--text-muted); line-height: 1.7; margin-bottom: 30px; flex-grow: 1; }
+
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes zoomIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+
+  @media (max-width: 850px) {
+    .modal-content-grid { grid-template-columns: 1fr; }
+    .modal-image-side { height: 300px; }
+    .modal-info-side { padding: 24px; }
+    .product-modal-card { max-height: 90vh; overflow-y: auto; }
+  }
 </style>
 </head>
 <body>
@@ -977,6 +1026,12 @@
       <div class="spinner"></div>
       <p style="color:var(--text-muted);font-size:15px">Carregando produtos...</p>
     </div>
+  </div>
+
+  <div id="verMaisContainer" style="display: none; text-align: center; margin-top: 48px;">
+    <button id="btnVerMais" class="btn-ghost btn-dark" onclick="toggleVerMais()">
+      Ver mais produtos
+    </button>
   </div>
 </main>
 
@@ -1469,11 +1524,8 @@
     </div>
   </div>
   <div class="footer-bottom">
-    <span>© 2024 ConfortMax Estofados & Colchões. Todos os direitos reservados.</span>
-    <span style="display:flex;align-items:center;gap:6px">
-      Desenvolvido com
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="var(--rust)" stroke="none"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-    </span>
+    <span>© 2026 ConfortMax Estofados & Colchões. Todos os direitos reservados.</span>
+
   </div>
 </footer>
 
@@ -1524,6 +1576,34 @@
   </div>
 </div>
 
+<div class="product-modal-overlay" id="productModal" onclick="closeProductDetail(event)">
+  <div class="product-modal-card" onclick="event.stopPropagation()">
+    <button class="modal-close" onclick="closeProductDetail()">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    
+    <div class="modal-content-grid">
+      <div class="modal-image-side">
+        <img id="modalImg" src="" alt="">
+      </div>
+      <div class="modal-info-side">
+        <p class="product-cat" id="modalCat"></p>
+        <h2 class="product-name" id="modalName" style="font-size: 28px; -webkit-line-clamp: unset;"></h2>
+        <div class="product-pricing" style="margin: 20px 0;">
+          <span class="price-current" id="modalPrice" style="font-size: 32px;"></span>
+          <span class="price-old" id="modalOldPrice"></span>
+        </div>
+        <p class="modal-description" id="modalDesc"></p>
+        
+        <div class="modal-footer">
+          <p class="price-parcel" id="modalParcel" style="margin-bottom: 20px;"></p>
+          <div id="modalActionBtn"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script>
 // ── CONFIGURAÇÃO ──────────────────────────────────────────
 const WHATSAPP_NUMBER = '5543999999999';
@@ -1534,6 +1614,8 @@ let allProducts = [];
 let cart = [];
 let currentCat = 'todos';
 let searchTerm = '';
+let showAllProducts = false;
+const LIMITE_INICIAL = 8; // Exibe 8 produtos inicialmente (2 fileiras)
 
 // ── CARREGAR EXCEL ─────────────────────────────────────────
 async function loadProducts() {
@@ -1574,7 +1656,7 @@ function showNoticeError(msg) {
     `⚠️ Não foi possível carregar <strong>${EXCEL_FILE}</strong>. Certifique-se que o arquivo está na mesma pasta do site e abra via servidor local. <em style="font-size:12px;color:#7a7570">(${msg})</em>`;
 }
 
-// ── CATEGORIAS ─────────────────────────────────────────────
+// ── CATEGORIAS E BUSCA ─────────────────────────────────────
 function buildCategoryNav() {
   const cats = ['todos', ...new Set(allProducts.map(p => p.categoria).filter(Boolean))];
   const container = document.getElementById('catsContainer');
@@ -1590,6 +1672,7 @@ function buildCategoryNav() {
 
 function filterCat(cat, btn) {
   currentCat = cat;
+  showAllProducts = false; // Reseta a exibição
   document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
   if (btn) btn.classList.add('active');
   else {
@@ -1603,12 +1686,16 @@ function filterCat(cat, btn) {
 
 function filterProducts() {
   searchTerm = document.getElementById('searchInput').value.toLowerCase();
+  showAllProducts = false; // Reseta a exibição
   renderProducts();
 }
 
-// ── RENDERIZAR PRODUTOS ─────────────────────────────────────
+// ── RENDERIZAR PRODUTOS & MODAL ─────────────────────────────
 function renderProducts() {
   const grid = document.getElementById('productsGrid');
+  const btnContainer = document.getElementById('verMaisContainer');
+  const btn = document.getElementById('btnVerMais');
+
   let filtered = allProducts.filter(p => {
     const matchCat = currentCat === 'todos' || p.categoria === currentCat;
     const matchSearch = !searchTerm ||
@@ -1617,24 +1704,56 @@ function renderProducts() {
       p.categoria.toLowerCase().includes(searchTerm);
     return matchCat && matchSearch;
   });
+
   document.getElementById('productCount').textContent =
     `${filtered.length} produto${filtered.length !== 1 ? 's' : ''} encontrado${filtered.length !== 1 ? 's' : ''}`;
+
   if (!filtered.length) {
     grid.innerHTML = `<div class="empty-state">
       <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
       <h3>Nenhum produto encontrado</h3>
       <p style="color:var(--text-muted)">Tente outra categoria ou termo de busca.</p>
     </div>`;
+    if(btnContainer) btnContainer.style.display = 'none';
     return;
   }
-  grid.innerHTML = filtered.map((p, i) => cardHTML(p, i)).join('');
+
+  // Lógica do Ver Mais
+  let productsToRender = filtered;
+  
+  if (btnContainer && btn) {
+    if (filtered.length > LIMITE_INICIAL) {
+      btnContainer.style.display = 'block';
+      if (!showAllProducts) {
+        productsToRender = filtered.slice(0, LIMITE_INICIAL);
+        btn.innerHTML = `Ver mais produtos <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-top:2px; vertical-align:middle"><path d="m6 9 6 6 6-6"/></svg>`;
+      } else {
+        btn.innerHTML = `Ver menos <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-top:2px; vertical-align:middle"><path d="m18 15-6-6-6 6"/></svg>`;
+      }
+    } else {
+      btnContainer.style.display = 'none';
+    }
+  }
+
+  grid.innerHTML = productsToRender.map((p, i) => cardHTML(p, i)).join('');
 }
 
+function toggleVerMais() {
+  showAllProducts = !showAllProducts;
+  renderProducts();
+  if (!showAllProducts) {
+    document.getElementById('produtos').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+}
+
+// O card agora tem o onclick para abrir o modal de detalhes
 function cardHTML(p, i) {
   const descPct = p.precoAntigo > p.preco ? Math.round((1 - p.preco / p.precoAntigo) * 100) : 0;
   const parcel = Math.round(p.preco / 12 * 100) / 100;
+  const pJson = JSON.stringify(p).replace(/"/g, '&quot;');
+  
   return `
-    <div class="product-card" style="animation-delay:${i * 60}ms">
+    <div class="product-card" style="animation-delay:${i * 60}ms" onclick="openProductDetail(${pJson})">
       <div class="product-img-wrap">
         <img src="${p.imagem}" alt="${p.nome}" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=600'">
         ${p.destaque ? `<span class="badge-destaque"><svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> Destaque</span>` : ''}
@@ -1649,12 +1768,47 @@ function cardHTML(p, i) {
           ${p.precoAntigo > p.preco ? `<span class="price-old">${formatBRL(p.precoAntigo)}</span>` : ''}
         </div>
         <p class="price-parcel">ou 12x de ${formatBRL(parcel)} sem juros no cartão</p>
-        <button class="btn-add-cart" id="btn-${p.id}" onclick="addToCart(${JSON.stringify(p).replace(/"/g, '&quot;')})">
+        <button class="btn-add-cart" id="btn-${p.id}" onclick="event.stopPropagation(); addToCart(${pJson})">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
           Adicionar ao Carrinho
         </button>
       </div>
     </div>`;
+}
+
+// Funções do Modal de Detalhes
+function openProductDetail(p) {
+  const modal = document.getElementById('productModal');
+  if (!modal) return; // Segurança caso o HTML não esteja na página
+
+  const parcel = Math.round(p.preco / 12 * 100) / 100;
+
+  document.getElementById('modalImg').src = p.imagem;
+  document.getElementById('modalCat').textContent = p.categoria;
+  document.getElementById('modalName').textContent = p.nome;
+  document.getElementById('modalPrice').textContent = formatBRL(p.preco);
+  document.getElementById('modalOldPrice').textContent = p.precoAntigo > p.preco ? formatBRL(p.precoAntigo) : '';
+  document.getElementById('modalDesc').textContent = p.descricao;
+  document.getElementById('modalParcel').textContent = `ou 12x de ${formatBRL(parcel)} sem juros no cartão`;
+  
+  const pJson = JSON.stringify(p).replace(/"/g, '&quot;');
+  document.getElementById('modalActionBtn').innerHTML = `
+    <button class="btn-primary" style="width:100%; justify-content:center; padding:18px" onclick="addToCart(${pJson}); closeProductDetail()">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+      Adicionar ao Carrinho
+    </button>
+  `;
+
+  modal.style.display = 'flex';
+  document.body.style.overflow = 'hidden'; // Evita que a página role por trás do modal
+}
+
+function closeProductDetail(e) {
+  if (!e || e.target.id === 'productModal' || e.type === 'click') {
+    const modal = document.getElementById('productModal');
+    if (modal) modal.style.display = 'none';
+    document.body.style.overflow = '';
+  }
 }
 
 // ── CARRINHO ───────────────────────────────────────────────
@@ -1734,7 +1888,7 @@ function toggleCart() {
   document.body.style.overflow = drawer.classList.contains('open') ? 'hidden' : '';
 }
 
-// ── WHATSAPP ───────────────────────────────────────────────
+// ── WHATSAPP (FINALIZAR COMPRA) ────────────────────────────
 function sendToWhatsApp() {
   if (cart.length === 0) return;
   const total = cart.reduce((s, i) => s + i.preco * i.qty, 0);
@@ -1766,24 +1920,6 @@ function showToast(msg) {
   setTimeout(() => t.classList.remove('show'), 2500);
 }
 
-// ── FALLBACK ───────────────────────────────────────────────
-function renderFallback() {
-  allProducts = [
-    { id: 1, nome: "Sofá Retrátil 3 Lugares Premium", categoria: "Sofás", preco: 2890, precoAntigo: 3490, descricao: "Sofá retrátil e reclinável com tecido suede importado, espuma D33, pés em madeira maciça.", imagem: "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=600", destaque: true },
-    { id: 2, nome: "Sofá Canto L Grande", categoria: "Sofás", preco: 4290, precoAntigo: 5200, descricao: "Sofá canto formato L com chaise, tecido veludo premium, 7 lugares.", imagem: "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=600", destaque: true },
-    { id: 3, nome: "Colchão Molas Ensacadas King Size", categoria: "Colchões", preco: 3190, precoAntigo: 3800, descricao: "Colchão com sistema de molas ensacadas, pillow top duplo, espuma viscoelástica. King 193x203cm.", imagem: "https://images.unsplash.com/photo-1631157769375-11e148452a97?w=600", destaque: true },
-    { id: 4, nome: "Poltrona Massageadora Recliner", categoria: "Poltronas", preco: 1890, precoAntigo: 2290, descricao: "Poltrona reclinável com função massagem, couro ecológico premium.", imagem: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=600", destaque: false },
-    { id: 5, nome: "Colchão Casal Ortopédico D45", categoria: "Colchões", preco: 1290, precoAntigo: 0, descricao: "Colchão ortopédico casal espuma D45 alta densidade, 138x188cm.", imagem: "https://images.unsplash.com/photo-1631157769375-11e148452a97?w=600", destaque: false },
-    { id: 6, nome: "Sofá 2 Lugares Veludo", categoria: "Sofás", preco: 1490, precoAntigo: 1890, descricao: "Sofá 2 lugares em veludo azul royal, pés dourados em metal, espuma D33.", imagem: "https://images.unsplash.com/photo-1540574163026-643ea20ade25?w=600", destaque: false },
-  ];
-  buildCategoryNav();
-  renderProducts();
-}
-
-// ── INIT ───────────────────────────────────────────────────
-loadProducts();
-updateCartUI();
-
 // ── VERIFICADOR DE FRETE ───────────────────────────────────
 function verificarFrete() {
   const select = document.getElementById('estadoSelect');
@@ -1792,9 +1928,7 @@ function verificarFrete() {
   
   if (!estadoSigla) return;
 
-  // Pega o nome do estado (ex: Maranhão) sem a sigla (MA)
   const estadoNome = select.options[select.selectedIndex].text.replace(/\s\([A-Z]{2}\)/, '');
-
   resultado.style.display = 'flex';
 
   if (estadoSigla === 'PR' || estadoSigla === 'SP') {
@@ -1808,7 +1942,6 @@ function verificarFrete() {
       </div>
     `;
   } else {
-    // Monta a mensagem para o WhatsApp com o NOME do estado
     const msgFrete = encodeURIComponent(`Olá! Gostaria de consultar o valor e o prazo do frete para: *${estadoNome}*.`);
     const linkWhats = `https://wa.me/${WHATSAPP_NUMBER}?text=${msgFrete}`;
 
@@ -1827,6 +1960,24 @@ function verificarFrete() {
     `;
   }
 }
+
+// ── FALLBACK ───────────────────────────────────────────────
+function renderFallback() {
+  allProducts = [
+    { id: 1, nome: "Sofá Retrátil 3 Lugares Premium", categoria: "Sofás", preco: 2890, precoAntigo: 3490, descricao: "Sofá retrátil e reclinável com tecido suede importado, espuma D33, pés em madeira maciça.", imagem: "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=600", destaque: true },
+    { id: 2, nome: "Sofá Canto L Grande", categoria: "Sofás", preco: 4290, precoAntigo: 5200, descricao: "Sofá canto formato L com chaise, tecido veludo premium, 7 lugares.", imagem: "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=600", destaque: true },
+    { id: 3, nome: "Colchão Molas Ensacadas King Size", categoria: "Colchões", preco: 3190, precoAntigo: 3800, descricao: "Colchão com sistema de molas ensacadas, pillow top duplo, espuma viscoelástica. King 193x203cm.", imagem: "https://images.unsplash.com/photo-1631157769375-11e148452a97?w=600", destaque: true },
+    { id: 4, nome: "Poltrona Massageadora Recliner", categoria: "Poltronas", preco: 1890, precoAntigo: 2290, descricao: "Poltrona reclinável com função massagem, couro ecológico premium.", imagem: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=600", destaque: false },
+    { id: 5, nome: "Colchão Casal Ortopédico D45", categoria: "Colchões", preco: 1290, precoAntigo: 0, descricao: "Colchão ortopédico casal espuma D45 alta densidade, 138x188cm.", imagem: "https://images.unsplash.com/photo-1631157769375-11e148452a97?w=600", destaque: false },
+    { id: 6, nome: "Sofá 2 Lugares Veludo", categoria: "Sofás", preco: 1490, precoAntigo: 1890, descricao: "Sofá 2 lugares em veludo azul royal, pés dourados em metal, espuma D33.", imagem: "https://images.unsplash.com/photo-1540574163026-643ea20ade25?w=600", destaque: false },
+  ];
+  buildCategoryNav();
+  renderProducts();
+}
+
+// ── INIT ───────────────────────────────────────────────────
+loadProducts();
+updateCartUI();
 </script>
 </body>
 </html>
