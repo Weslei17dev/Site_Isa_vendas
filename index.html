@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ConfortMax — Estofados & Colchões</title>
+<title>IsaConfort — Estofados & Colchões</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -14,8 +14,11 @@
     --warm-white: #fdfaf5;
     --charcoal: #1c1c1e;
     --deep: #0f0f12;
-    --gold: #c9a84c;
-    --gold-light: #e8c96a;
+    --gold: #E4007F; /* Alterado de #c9a84c para #E4007F */
+    --gold-light: #E4007F; /* Alterado de #e8c96a para #E4007F */
+    --pink: #E4007F;
+    --pink-light: #ff3da0;
+    --pink-dark: #b5006a;
     --rust: #c9623a;
     --sage: #7a9e87;
     --text-muted: #7a7570;
@@ -58,9 +61,11 @@
     gap: 24px;
   }
 
-  .logo { display: flex; flex-direction: column; line-height: 1; text-decoration: none; }
+  .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+  .logo-img { height: 44px; width: auto; object-fit: contain; }
+  .logo-text { display: flex; flex-direction: column; line-height: 1; }
   .logo-name { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: var(--charcoal); letter-spacing: -0.5px; }
-  .logo-name span { color: var(--gold); }
+  .logo-name span { color: var(--pink); }
   .logo-sub { font-size: 10px; font-weight: 500; letter-spacing: 2.5px; text-transform: uppercase; color: var(--text-muted); margin-top: 2px; }
 
   .header-search { flex: 1; max-width: 440px; position: relative; }
@@ -70,7 +75,7 @@
     background: var(--cream); font-family: 'DM Sans', sans-serif;
     font-size: 14px; color: var(--charcoal); outline: none; transition: var(--transition);
   }
-  .header-search input:focus { border-color: var(--gold); background: white; box-shadow: 0 0 0 4px rgba(201,168,76,0.12); }
+  .header-search input:focus { border-color: var(--pink); background: white; box-shadow: 0 0 0 4px rgba(228,0,127,0.10); }
   .header-search input::placeholder { color: var(--text-muted); }
   .search-icon { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--text-muted); pointer-events: none; }
 
@@ -82,7 +87,7 @@
     font-size: 13px; font-weight: 500; background: var(--cream);
     border: 1.5px solid var(--border); transition: var(--transition);
   }
-  .header-phone:hover { border-color: var(--sage); background: white; }
+  .header-phone:hover { border-color: var(--pink); background: white; color: var(--pink); }
 
   .cart-btn {
     display: flex; align-items: center; gap: 10px; padding: 10px 20px;
@@ -90,10 +95,10 @@
     cursor: pointer; font-family: 'DM Sans', sans-serif; font-size: 14px;
     font-weight: 600; transition: var(--transition); position: relative;
   }
-  .cart-btn:hover { background: var(--gold); transform: translateY(-1px); }
+  .cart-btn:hover { background: var(--pink); transform: translateY(-1px); }
 
   .cart-count {
-    background: var(--rust); color: white; border-radius: 50px;
+    background: var(--pink); color: white; border-radius: 50px;
     font-size: 11px; font-weight: 700; min-width: 20px; height: 20px;
     display: flex; align-items: center; justify-content: center; padding: 0 5px;
   }
@@ -105,8 +110,9 @@
   }
   .hero::before {
     content: ''; position: absolute; inset: 0;
-    background: radial-gradient(ellipse 70% 80% at 60% 50%, rgba(201,168,76,0.15) 0%, transparent 70%),
-                radial-gradient(ellipse 40% 60% at 10% 80%, rgba(122,158,135,0.1) 0%, transparent 60%);
+    /* Alterado o rgba dourado para rgba rosa (#E4007F correspondente) */
+    background: radial-gradient(ellipse 70% 80% at 60% 50%, rgba(228,0,127,0.12) 0%, transparent 70%),
+                radial-gradient(ellipse 40% 60% at 10% 80%, rgba(228,0,127,0.10) 0%, transparent 60%);
   }
 
   .hero-inner {
@@ -116,8 +122,8 @@
 
   .hero-badge {
     display: inline-flex; align-items: center; gap: 8px;
-    background: rgba(201,168,76,0.15); border: 1px solid rgba(201,168,76,0.3);
-    color: var(--gold-light); padding: 6px 14px; border-radius: 50px;
+    background: rgba(228,0,127,0.15); border: 1px solid rgba(228,0,127,0.35);
+    color: var(--pink-light); padding: 6px 14px; border-radius: 50px;
     font-size: 12px; font-weight: 600; letter-spacing: 1.5px;
     text-transform: uppercase; margin-bottom: 24px;
   }
@@ -133,12 +139,12 @@
   .hero-ctas { display: flex; gap: 14px; flex-wrap: wrap; }
 
   .btn-primary {
-    padding: 14px 28px; background: var(--gold); color: var(--deep);
+    padding: 14px 28px; background: var(--pink); color: white;
     border: none; border-radius: 50px; font-family: 'DM Sans', sans-serif;
     font-size: 15px; font-weight: 700; cursor: pointer; transition: var(--transition);
     text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
   }
-  .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(201,168,76,0.35); }
+  .btn-primary:hover { background: var(--pink-light); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(228,0,127,0.40); }
 
   .btn-ghost {
     padding: 14px 28px; background: transparent; color: white;
@@ -149,7 +155,6 @@
   }
   .btn-ghost:hover { border-color: white; background: rgba(255,255,255,0.08); }
 
-  /* Estilo escuro para o botão Ver Mais */
   .btn-ghost.btn-dark {
     color: var(--charcoal);
     border-color: var(--charcoal);
@@ -168,7 +173,7 @@
   .hero-img-wrap { width: 100%; max-width: 520px; height: 380px; border-radius: 24px; overflow: hidden; position: relative; box-shadow: 0 32px 80px rgba(0,0,0,0.5); }
   .hero-img-wrap img { width: 100%; height: 100%; object-fit: cover; }
   .hero-img-badge { position: absolute; bottom: -16px; left: -16px; background: white; color: var(--charcoal); padding: 16px 20px; border-radius: 16px; box-shadow: 0 8px 32px rgba(0,0,0,0.2); }
-  .hero-img-badge strong { display: block; font-size: 18px; font-weight: 700; color: var(--rust); }
+  .hero-img-badge strong { display: block; font-size: 18px; font-weight: 700; color: var(--pink); }
   .hero-img-badge span { font-size: 12px; color: var(--text-muted); }
 
   /* ── CATEGORIES NAV ─────────────────────────────── */
@@ -176,25 +181,24 @@
   .cats-inner { max-width: 1280px; margin: 0 auto; display: flex; gap: 4px; overflow-x: auto; scrollbar-width: none; padding: 12px 0; }
   .cats-inner::-webkit-scrollbar { display: none; }
   .cat-btn { padding: 8px 20px; border-radius: 50px; border: 1.5px solid var(--border); background: transparent; color: var(--text-muted); font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500; cursor: pointer; transition: var(--transition); white-space: nowrap; }
-  .cat-btn:hover { border-color: var(--charcoal); color: var(--charcoal); }
-  .cat-btn.active { background: var(--charcoal); border-color: var(--charcoal); color: white; }
+  .cat-btn:hover { border-color: var(--pink); color: var(--pink); }
+  .cat-btn.active { background: var(--pink); border-color: var(--pink); color: white; }
 
   /* ── MAIN / PRODUCTS ─────────────────────────────── */
   .main { max-width: 1280px; margin: 0 auto; padding: 48px 24px; }
 
   .section-header { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 32px; gap: 16px; }
   .section-title { font-family: 'Playfair Display', serif; font-size: clamp(24px, 3vw, 36px); font-weight: 700; letter-spacing: -0.5px; line-height: 1.2; }
-  .section-title span { color: var(--gold); }
+  .section-title span { color: var(--pink); }
   .section-count { font-size: 13px; color: var(--text-muted); font-weight: 500; white-space: nowrap; }
 
   .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px; }
 
- .product-card {
+  .product-card {
     background: var(--card-bg); border-radius: var(--radius); overflow: hidden;
     box-shadow: var(--shadow); transition: var(--transition); cursor: pointer;
     position: relative; border: 1px solid var(--border);
     animation: fadeUp 0.5s ease both;
-    /* Adicionamos flexbox no card */
     display: flex;
     flex-direction: column;
     height: 100%;
@@ -204,17 +208,16 @@
   .product-img-wrap img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
   .product-card:hover .product-img-wrap img { transform: scale(1.06); }
 
-  .badge-destaque { position: absolute; top: 12px; left: 12px; background: var(--gold); color: var(--deep); font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; padding: 4px 10px; border-radius: 50px; display: flex; align-items: center; gap: 4px; }
-  .badge-desc { position: absolute; top: 12px; right: 12px; background: var(--rust); color: white; font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 50px; }
+  .badge-destaque { position: absolute; top: 12px; left: 12px; background: var(--pink); color: white; font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; padding: 4px 10px; border-radius: 50px; display: flex; align-items: center; gap: 4px; }
+  .badge-desc { position: absolute; top: 12px; right: 12px; background: var(--gold); color: white; font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 50px; } /* Ajustado color para white para melhor contraste com o novo fundo rosa */
 
- .product-body { 
+  .product-body { 
     padding: 18px 20px 20px; 
-    /* Adicionamos flexbox no corpo do card para ele crescer */
     display: flex;
     flex-direction: column;
     flex-grow: 1; 
   }
-  .product-cat { font-size: 11px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--sage); margin-bottom: 6px; }
+  .product-cat { font-size: 11px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--pink); margin-bottom: 6px; }
   .product-name { font-family: 'Playfair Display', serif; font-size: 17px; font-weight: 600; line-height: 1.3; color: var(--charcoal); margin-bottom: 8px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
   .product-desc { font-size: 13px; color: var(--text-muted); line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; margin-bottom: 16px; }
 
@@ -223,187 +226,183 @@
   .price-old { font-size: 14px; color: var(--text-muted); text-decoration: line-through; }
   .price-parcel { font-size: 12px; color: var(--sage); font-weight: 500; margin-bottom: 16px; }
 
-.btn-add-cart {
+  .btn-add-cart {
     width: 100%; padding: 12px; background: var(--charcoal); color: white;
     border: none; border-radius: 50px; font-family: 'DM Sans', sans-serif;
     font-size: 14px; font-weight: 600; cursor: pointer; transition: var(--transition);
     display: flex; align-items: center; justify-content: center; gap: 8px;
-    /* A MÁGICA ACONTECE AQUI: empurra o botão para o fundo */
     margin-top: auto;
   }
-  .btn-add-cart:hover { background: var(--gold); color: var(--deep); transform: scale(1.02); }
+  .btn-add-cart:hover { background: var(--pink); color: white; transform: scale(1.02); }
   .btn-add-cart.added { background: var(--sage); }
 
   .loading-state { grid-column: 1 / -1; text-align: center; padding: 80px 20px; }
-  .spinner { width: 40px; height: 40px; border: 3px solid var(--border); border-top-color: var(--gold); border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 16px; }
+  .spinner { width: 40px; height: 40px; border: 3px solid var(--border); border-top-color: var(--pink); border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 16px; }
   @keyframes spin { to { transform: rotate(360deg); } }
 
   .empty-state { grid-column: 1 / -1; text-align: center; padding: 80px 20px; color: var(--text-muted); }
   .empty-state svg { margin-bottom: 16px; opacity: 0.3; }
   .empty-state h3 { font-family: 'Playfair Display', serif; font-size: 24px; color: var(--charcoal); margin-bottom: 8px; }
 
-  .notice { background: #fff8e8; border: 1.5px solid var(--gold); border-radius: 12px; padding: 16px 20px; margin-bottom: 32px; display: flex; align-items: center; gap: 12px; font-size: 14px; color: #7a5f20; }
+  .notice { background: #fff0f8; border: 1.5px solid var(--pink); border-radius: 12px; padding: 16px 20px; margin-bottom: 32px; display: flex; align-items: center; gap: 12px; font-size: 14px; color: #900050; }
   .notice.hidden { display: none; }
 
   @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
-  /* ── COMO FUNCIONA (Ajustado) ─────────────────────────── */
-.how-it-works {
-  background: var(--deep);
-  color: white;
-  padding: 100px 24px;
-  position: relative;
-  overflow: hidden;
-}
-
-.how-inner { max-width: 1280px; margin: 0 auto; position: relative; }
-
-.section-label {
-  font-size: 11px; font-weight: 600; letter-spacing: 3px;
-  text-transform: uppercase; color: var(--gold); margin-bottom: 12px;
-}
-
-.how-title {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(32px, 5vw, 48px);
-  font-weight: 700;
-  margin-bottom: 16px;
-  letter-spacing: -0.5px;
-}
-.how-title span { color: var(--gold); font-style: italic; }
-
-.how-subtitle {
-  font-size: 16px; color: rgba(255,255,255,0.55); 
-  margin-bottom: 80px; max-width: 500px;
-  line-height: 1.6;
-}
-
-.how-steps {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 40px;
-  position: relative;
-}
-
-/* Linha conectora horizontal (apenas desktop) 
-.how-steps::before {
-  content: '';
-  position: absolute;
-  top: 28px;
-  left: 10%;
-  right: 10%;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(201,168,76,0.4) 50%, transparent);
-  z-index: 0;
-} */
-
-.how-step {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-
-/* Números em background ajustados */
-.step-number {
-  font-family: 'Playfair Display', serif;
-  font-size: 100px;
-  font-weight: 900;
-  color: rgba(201,168,76,0.05); /* Mais sutil */
-  line-height: 1;
-  position: absolute;
-  top: -40px;
-  left: -10px;
-  z-index: 0;
-  user-select: none;
-}
-
-.step-icon-wrap {
-  width: 56px; height: 56px;
-  background: var(--deep); /* Fundo sólido para cortar a linha */
-  border: 1px solid var(--gold);
-  border-radius: 14px;
-  display: flex; align-items: center; justify-content: center;
-  margin-bottom: 24px;
-  position: relative; z-index: 2;
-  color: var(--gold);
-  box-shadow: 0 0 20px rgba(201,168,76,0.15);
-}
-
-.step-title {
-  font-size: 16px; font-weight: 700;
-  text-transform: uppercase; letter-spacing: 1px;
-  margin-bottom: 14px; position: relative; z-index: 1;
-  color: #fff;
-}
-
-.step-desc {
-  font-size: 14px; color: rgba(255,255,255,0.5);
-  line-height: 1.8; position: relative; z-index: 1;
-  max-width: 90%;
-}
-
-@media (max-width: 900px) {
-  .how-steps { grid-template-columns: 1fr; gap: 60px; }
-  .how-steps::before { display: none; }
-  .how-step { align-items: center; text-align: center; }
-  .step-number { left: 50%; transform: translateX(-50%); top: -30px; }
-}
-
-  /* ── FRETE BANNER ─────────────────────────────── */
-  .frete-banner {
-    background: var(--gold);
-    padding: 32px 24px;
+  /* ── COMO FUNCIONA ─────────────────────────────── */
+  .how-it-works {
+    background: var(--deep);
+    color: white;
+    padding: 100px 24px;
+    position: relative;
     overflow: hidden;
+  }
+
+  .how-inner { max-width: 1280px; margin: 0 auto; position: relative; }
+
+  .section-label {
+    font-size: 11px; font-weight: 600; letter-spacing: 3px;
+    text-transform: uppercase; color: var(--gold); margin-bottom: 12px;
+  }
+
+  .how-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(32px, 5vw, 48px);
+    font-weight: 700;
+    margin-bottom: 16px;
+    letter-spacing: -0.5px;
+  }
+  .how-title span { color: var(--pink); font-style: italic; }
+
+  .how-subtitle {
+    font-size: 16px; color: rgba(255,255,255,0.55); 
+    margin-bottom: 80px; max-width: 500px;
+    line-height: 1.6;
+  }
+
+  .how-steps {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
     position: relative;
   }
-  .frete-banner::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: repeating-linear-gradient(
-      45deg,
-      transparent,
-      transparent 20px,
-      rgba(0,0,0,0.03) 20px,
-      rgba(0,0,0,0.03) 40px
-    );
+
+  .how-step {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
   }
 
-  .frete-inner {
-    max-width: 1280px; margin: 0 auto;
-    display: flex; align-items: center; justify-content: space-between;
-    gap: 32px; flex-wrap: wrap; position: relative;
-  }
-
-  .frete-left { display: flex; align-items: center; gap: 20px; }
-
-  .frete-icon-wrap {
-    width: 64px; height: 64px;
-    background: rgba(15,15,18,0.15);
-    border-radius: 16px;
-    display: flex; align-items: center; justify-content: center;
-    color: var(--deep); flex-shrink: 0;
-  }
-
-  .frete-text h3 {
+  .step-number {
     font-family: 'Playfair Display', serif;
-    font-size: 24px; font-weight: 700;
-    color: var(--deep); margin-bottom: 4px;
+    font-size: 100px;
+    font-weight: 900;
+    color: rgba(228,0,127,0.06);
+    line-height: 1;
+    position: absolute;
+    top: -40px;
+    left: -10px;
+    z-index: 0;
+    user-select: none;
   }
-  .frete-text p { font-size: 14px; color: rgba(15,15,18,0.65); }
 
-  .frete-items {
-    display: flex; gap: 32px; flex-wrap: wrap;
+  .step-icon-wrap {
+    width: 56px; height: 56px;
+    background: var(--deep);
+    border: 1px solid var(--pink);
+    border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 24px;
+    position: relative; z-index: 2;
+    color: var(--pink);
+    box-shadow: 0 0 20px rgba(228,0,127,0.18);
   }
 
-  .frete-item {
-    display: flex; align-items: center; gap: 10px;
-    background: rgba(15,15,18,0.1);
-    border-radius: 50px; padding: 10px 18px;
+  .step-title {
+    font-size: 16px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 1px;
+    margin-bottom: 14px; position: relative; z-index: 1;
+    color: #fff;
   }
-  .frete-item svg { color: var(--deep); flex-shrink: 0; }
-  .frete-item-text { font-size: 13px; font-weight: 600; color: var(--deep); }
+
+  .step-desc {
+    font-size: 14px; color: rgba(255,255,255,0.5);
+    line-height: 1.8; position: relative; z-index: 1;
+    max-width: 90%;
+  }
+
+  @media (max-width: 900px) {
+    .how-steps { grid-template-columns: 1fr; gap: 60px; }
+    .how-step { align-items: center; text-align: center; }
+    .step-number { left: 50%; transform: translateX(-50%); top: -30px; }
+  }
+
+  /* ── FRETE NACIONAL ─────────────────────────────── */
+  .frete-nacional {
+    background: var(--warm-white);
+    padding: 80px 24px;
+    border-top: 1px solid var(--border);
+  }
+
+  .frete-nac-inner {
+    max-width: 1000px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+  }
+
+  .frete-nac-text .section-label { color: var(--sage); }
+  .frete-nac-title { font-family: 'Playfair Display', serif; font-size: clamp(28px, 4vw, 42px); font-weight: 700; letter-spacing: -0.5px; margin-bottom: 16px; color: var(--charcoal); }
+  .frete-nac-title span { color: var(--pink); font-style: italic; }
+  .frete-nac-desc { font-size: 15px; color: var(--text-muted); line-height: 1.6; margin-bottom: 32px; }
+  .frete-nac-box { background: white; border: 1.5px solid var(--border); border-radius: 20px; padding: 32px; box-shadow: var(--shadow); }
+  .estado-select { width: 100%; padding: 14px 16px; border: 1.5px solid var(--border); border-radius: 12px; font-family: 'DM Sans', sans-serif; font-size: 15px; color: var(--charcoal); background: var(--cream); outline: none; transition: var(--transition); cursor: pointer; margin-bottom: 24px; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%237a7570' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 16px center; }
+  .estado-select:focus { border-color: var(--pink); }
+  .frete-resultado { display: flex; flex-direction: column; gap: 16px; display: none; animation: fadeUp 0.4s ease; }
+  .frete-status { display: flex; align-items: center; gap: 12px; padding: 16px; border-radius: 12px; font-weight: 600; }
+  .frete-status.gratis { background: rgba(122, 158, 135, 0.1); color: var(--sage); border: 1px solid rgba(122, 158, 135, 0.3); }
+  .frete-status.consultar { background: rgba(228,0,127, 0.07); color: var(--pink); border: 1px solid rgba(228,0,127, 0.2); }
+  .frete-status svg { flex-shrink: 0; }
+
+  .mapa-brasil-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 380px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .mapa-brasil-img {
+    width: 100%;
+    height: auto;
+    opacity: 0.6;
+    filter: brightness(0) invert(72%) sepia(51%) saturate(464%) hue-rotate(6deg) brightness(92%) contrast(88%);
+  }
+
+  .map-pin {
+    position: absolute;
+    width: 14px; height: 14px;
+    background: var(--pink);
+    border-radius: 50%;
+    box-shadow: 0 0 0 4px rgba(228,0,127,0.3);
+    animation: pulse-pin 2s infinite;
+    z-index: 2;
+    transform: translate(-50%, -50%);
+  }
+
+  .pin-sp { top: 68.5%; left: 63%; }
+  .pin-pr { top: 75.5%; left: 58%; }
+
+  @keyframes pulse-pin {
+    0% { box-shadow: 0 0 0 0 rgba(228,0,127,0.6); }
+    70% { box-shadow: 0 0 0 15px rgba(228,0,127,0); }
+    100% { box-shadow: 0 0 0 0 rgba(228,0,127,0); }
+  }
 
   /* ── PROCESSO ─────────────────────────────── */
   .processo {
@@ -421,7 +420,7 @@
     font-weight: 700; letter-spacing: -0.5px;
     margin-bottom: 12px; color: var(--charcoal);
   }
-  .processo-title span { color: var(--gold); font-style: italic; }
+  .processo-title span { color: var(--pink); font-style: italic; }
   .processo-subtitle { font-size: 15px; color: var(--text-muted); }
 
   .processo-timeline { position: relative; }
@@ -433,7 +432,7 @@
     transform: translateX(-50%);
     top: 0; bottom: 0;
     width: 2px;
-    background: linear-gradient(180deg, var(--gold) 0%, var(--border) 100%);
+    background: linear-gradient(180deg, var(--pink) 0%, var(--border) 100%);
   }
 
   .processo-item {
@@ -454,15 +453,12 @@
     padding: 28px 32px;
     transition: var(--transition);
   }
-  .processo-card:hover { border-color: var(--gold); box-shadow: var(--shadow-hover); transform: translateY(-2px); }
+  .processo-card:hover { border-color: var(--pink); box-shadow: var(--shadow-hover); transform: translateY(-2px); }
 
   .processo-item.right .processo-card { grid-column: 3; }
   .processo-item.left .processo-card { grid-column: 1; }
-
   .processo-item.right .processo-empty { grid-column: 1; }
   .processo-item.left .processo-empty { grid-column: 3; }
-
-  .processo-empty { /* placeholder */ }
 
   .processo-node {
     grid-column: 2;
@@ -472,18 +468,18 @@
 
   .processo-node-inner {
     width: 44px; height: 44px;
-    background: var(--gold);
+    background: var(--pink);
     border-radius: 50%;
     display: flex; align-items: center; justify-content: center;
     font-family: 'Playfair Display', serif;
     font-size: 16px; font-weight: 700;
-    color: var(--deep);
-    box-shadow: 0 0 0 6px var(--warm-white), 0 0 0 8px rgba(201,168,76,0.3);
+    color: white;
+    box-shadow: 0 0 0 6px var(--warm-white), 0 0 0 8px rgba(228,0,127,0.25);
   }
 
   .processo-tag {
     font-size: 10px; font-weight: 600; letter-spacing: 2px;
-    text-transform: uppercase; color: var(--gold); margin-bottom: 6px;
+    text-transform: uppercase; color: var(--pink); margin-bottom: 6px;
   }
 
   .processo-card-title {
@@ -509,7 +505,7 @@
     position: absolute;
     bottom: -80px; right: -80px;
     width: 320px; height: 320px;
-    border: 1px solid rgba(201,168,76,0.1);
+    border: 1px solid rgba(228,0,127,0.12);
     border-radius: 50%;
   }
 
@@ -521,7 +517,7 @@
     font-size: clamp(28px, 4vw, 48px);
     font-weight: 700; letter-spacing: -0.5px; margin-bottom: 12px;
   }
-  .porque-title span { color: var(--gold); font-style: italic; }
+  .porque-title span { color: var(--pink); font-style: italic; }
   .porque-subtitle { font-size: 15px; color: rgba(255,255,255,0.5); }
 
   .porque-grid {
@@ -544,26 +540,26 @@
     position: absolute;
     top: 0; left: 0; right: 0;
     height: 2px;
-    background: linear-gradient(90deg, var(--gold), transparent);
+    background: linear-gradient(90deg, var(--pink), var(--gold), transparent);
     opacity: 0;
     transition: var(--transition);
   }
-  .porque-card:hover { border-color: rgba(201,168,76,0.25); background: rgba(201,168,76,0.05); transform: translateY(-4px); }
+  .porque-card:hover { border-color: rgba(228,0,127,0.25); background: rgba(228,0,127,0.05); transform: translateY(-4px); }
   .porque-card:hover::before { opacity: 1; }
 
   .porque-icon {
     width: 52px; height: 52px;
-    background: rgba(201,168,76,0.12);
-    border: 1px solid rgba(201,168,76,0.25);
+    background: rgba(228,0,127,0.12);
+    border: 1px solid rgba(228,0,127,0.25);
     border-radius: 14px;
     display: flex; align-items: center; justify-content: center;
-    color: var(--gold); margin-bottom: 20px;
+    color: var(--pink); margin-bottom: 20px;
   }
 
   .porque-card-title { font-size: 16px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 10px; }
   .porque-card-desc { font-size: 14px; color: rgba(255,255,255,0.5); line-height: 1.7; }
 
-  /* ── FEATURES / DIFERENCIAIS ─────────────────────────────── */
+  /* ── FEATURES ─────────────────────────────── */
   .features {
     background: var(--charcoal);
     color: white;
@@ -576,9 +572,9 @@
   .feature-item { display: flex; flex-direction: column; gap: 12px; }
   .feature-icon {
     width: 48px; height: 48px;
-    background: rgba(201,168,76,0.15); border: 1px solid rgba(201,168,76,0.3);
+    background: rgba(228,0,127,0.15); border: 1px solid rgba(228,0,127,0.3);
     border-radius: 12px; display: flex; align-items: center; justify-content: center;
-    color: var(--gold);
+    color: var(--pink);
   }
   .feature-title { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 600; }
   .feature-desc { font-size: 14px; color: rgba(255,255,255,0.5); line-height: 1.6; }
@@ -597,7 +593,7 @@
     font-weight: 700; letter-spacing: -0.5px;
     color: var(--charcoal); margin-bottom: 12px;
   }
-  .faq-title span { color: var(--gold); font-style: italic; }
+  .faq-title span { color: var(--pink); font-style: italic; }
   .faq-subtitle { font-size: 15px; color: var(--text-muted); }
 
   .faq-list { display: flex; flex-direction: column; gap: 12px; }
@@ -609,7 +605,7 @@
     overflow: hidden;
     transition: var(--transition);
   }
-  .faq-item.open { border-color: var(--gold); }
+  .faq-item.open { border-color: var(--pink); }
 
   .faq-question {
     width: 100%; padding: 22px 24px;
@@ -619,7 +615,7 @@
     color: var(--charcoal); text-align: left;
     transition: var(--transition);
   }
-  .faq-question:hover { color: var(--gold); }
+  .faq-question:hover { color: var(--pink); }
 
   .faq-toggle {
     width: 28px; height: 28px; flex-shrink: 0;
@@ -628,7 +624,7 @@
     color: var(--text-muted); transition: var(--transition);
   }
   .faq-item.open .faq-toggle {
-    background: var(--gold); border-color: var(--gold); color: white;
+    background: var(--pink); border-color: var(--pink); color: white;
     transform: rotate(45deg);
   }
 
@@ -652,7 +648,7 @@
     content: '';
     position: absolute;
     inset: 0;
-    background: radial-gradient(ellipse 60% 60% at 70% 50%, rgba(201,168,76,0.08) 0%, transparent 70%);
+    background: radial-gradient(ellipse 60% 60% at 70% 50%, rgba(228,0,127,0.08) 0%, transparent 70%);
   }
 
   .contato-inner {
@@ -667,7 +663,7 @@
     font-weight: 900; letter-spacing: -1px; line-height: 1.1;
     margin-bottom: 16px;
   }
-  .contato-title span { color: var(--gold); font-style: italic; }
+  .contato-title span { color: var(--pink); font-style: italic; }
   .contato-desc { font-size: 15px; color: rgba(255,255,255,0.55); line-height: 1.7; margin-bottom: 40px; }
 
   .contato-items { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
@@ -679,20 +675,20 @@
     display: flex; align-items: flex-start; gap: 12px;
     transition: var(--transition);
   }
-  .contato-item:hover { border-color: rgba(201,168,76,0.3); background: rgba(201,168,76,0.05); }
+  .contato-item:hover { border-color: rgba(228,0,127,0.3); background: rgba(228,0,127,0.05); }
 
   .contato-item-icon {
     width: 36px; height: 36px; flex-shrink: 0;
-    background: rgba(201,168,76,0.12);
+    background: rgba(228,0,127,0.12);
     border-radius: 10px; display: flex; align-items: center; justify-content: center;
-    color: var(--gold);
+    color: var(--pink);
   }
   .contato-item-label { font-size: 11px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-bottom: 4px; }
   .contato-item-value { font-size: 14px; font-weight: 500; color: white; }
 
   .contato-card {
     background: rgba(255,255,255,0.05);
-    border: 1px solid rgba(201,168,76,0.2);
+    border: 1px solid rgba(228,0,127,0.25);
     border-radius: 24px;
     padding: 40px;
   }
@@ -720,13 +716,17 @@
     display: flex; align-items: center; gap: 10px;
     font-size: 13px; color: rgba(255,255,255,0.5);
   }
-  .contato-info-row svg { color: var(--gold); flex-shrink: 0; }
+  .contato-info-row svg { color: var(--pink); flex-shrink: 0; }
 
   /* ── FOOTER ─────────────────────────────── */
   footer { background: var(--charcoal); color: white; padding: 48px 24px 32px; }
   .footer-inner { max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 48px; padding-bottom: 32px; border-bottom: 1px solid rgba(255,255,255,0.1); }
   .footer-brand p { font-size: 14px; color: rgba(255,255,255,0.5); line-height: 1.7; margin-top: 12px; max-width: 300px; }
-  .footer-col h4 { font-weight: 600; font-size: 14px; letter-spacing: 1px; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; }
+  .footer-logo { display: flex; align-items: center; gap: 10px; }
+  .footer-logo-img { height: 38px; width: auto; object-fit: contain; filter: brightness(0) invert(1); opacity: 0.85; }
+  .footer-logo-text { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 700; color: white; }
+  .footer-logo-text span { color: var(--pink); }
+  .footer-col h4 { font-weight: 600; font-size: 14px; letter-spacing: 1px; text-transform: uppercase; color: var(--pink); margin-bottom: 16px; }
   .footer-col a { display: block; font-size: 14px; color: rgba(255,255,255,0.5); text-decoration: none; margin-bottom: 8px; transition: var(--transition); }
   .footer-col a:hover { color: white; }
   .footer-bottom { max-width: 1280px; margin: 24px auto 0; display: flex; justify-content: space-between; align-items: center; font-size: 13px; color: rgba(255,255,255,0.35); }
@@ -741,7 +741,7 @@
   .cart-header { padding: 24px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
   .cart-title { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; display: flex; align-items: center; gap: 10px; }
   .cart-close { width: 36px; height: 36px; border-radius: 50%; border: 1.5px solid var(--border); background: transparent; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: var(--transition); color: var(--text-muted); }
-  .cart-close:hover { background: var(--charcoal); color: white; border-color: var(--charcoal); }
+  .cart-close:hover { background: var(--pink); color: white; border-color: var(--pink); }
 
   .cart-items { flex: 1; overflow-y: auto; padding: 16px; display: flex; flex-direction: column; gap: 12px; }
 
@@ -759,11 +759,11 @@
   .cart-item-controls { display: flex; align-items: center; gap: 8px; margin-top: 8px; }
 
   .qty-btn { width: 26px; height: 26px; border-radius: 50%; border: 1.5px solid var(--border); background: white; cursor: pointer; font-size: 14px; font-weight: 700; display: flex; align-items: center; justify-content: center; transition: var(--transition); color: var(--charcoal); }
-  .qty-btn:hover { background: var(--charcoal); color: white; border-color: var(--charcoal); }
+  .qty-btn:hover { background: var(--pink); color: white; border-color: var(--pink); }
   .qty-num { font-weight: 700; font-size: 14px; min-width: 20px; text-align: center; }
 
   .item-remove { background: none; border: none; cursor: pointer; color: var(--text-muted); font-size: 16px; padding: 4px; transition: var(--transition); margin-left: auto; align-self: flex-start; }
-  .item-remove:hover { color: var(--rust); }
+  .item-remove:hover { color: var(--pink); }
 
   .cart-footer { padding: 20px 24px; border-top: 1px solid var(--border); background: white; }
   .cart-subtotal { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; font-size: 14px; color: var(--text-muted); }
@@ -786,111 +786,8 @@
   .float-wa:hover { transform: scale(1.1); }
   @keyframes pulse-wa { 0%, 100% { box-shadow: 0 8px 24px rgba(37,211,102,0.5); } 50% { box-shadow: 0 8px 40px rgba(37,211,102,0.7), 0 0 0 10px rgba(37,211,102,0.1); } }
 
-  .toast { position: fixed; bottom: 100px; right: 28px; background: var(--charcoal); color: white; padding: 12px 20px; border-radius: 50px; font-size: 14px; font-weight: 600; z-index: 300; opacity: 0; transform: translateY(10px); transition: all 0.3s ease; pointer-events: none; }
+  .toast { position: fixed; bottom: 100px; right: 28px; background: var(--pink); color: white; padding: 12px 20px; border-radius: 50px; font-size: 14px; font-weight: 600; z-index: 300; opacity: 0; transform: translateY(10px); transition: all 0.3s ease; pointer-events: none; }
   .toast.show { opacity: 1; transform: translateY(0); }
-
-  /* ── RESPONSIVE ─────────────────────────────── */
-  @media (max-width: 900px) {
-    .how-steps { grid-template-columns: 1fr; gap: 40px; }
-    .how-steps::before { display: none; }
-    .processo-timeline::before { left: 28px; transform: none; }
-    .processo-item { grid-template-columns: 56px 1fr; }
-    .processo-item.right .processo-card,
-    .processo-item.left .processo-card { grid-column: 2; }
-    .processo-item.right .processo-empty,
-    .processo-item.left .processo-empty { display: none; }
-    .processo-node { grid-column: 1; }
-    .contato-inner { grid-template-columns: 1fr; gap: 48px; }
-    .contato-items { grid-template-columns: 1fr; }
-  }
-
-  @media (max-width: 768px) {
-    .hero-inner { grid-template-columns: 1fr; gap: 40px; }
-    .hero-visual { display: none; }
-    .hero-stats { flex-wrap: wrap; gap: 20px; }
-    .footer-inner { grid-template-columns: 1fr; gap: 32px; }
-    .footer-bottom { flex-direction: column; gap: 8px; text-align: center; }
-    .header-phone { display: none; }
-    .header-search { display: none; }
-    .frete-inner { flex-direction: column; align-items: flex-start; }
-    .porque-grid { grid-template-columns: 1fr; }
-  }
-
-  @media (max-width: 480px) {
-    .cart-drawer { width: 100vw; }
-    .products-grid { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
-  }
-
-  /* ── MAPA DE FRETE NACIONAL ─────────────────────────────── */
-  .frete-nacional {
-    background: var(--warm-white);
-    padding: 80px 24px;
-    border-top: 1px solid var(--border);
-  }
-
-  .frete-nac-inner {
-    max-width: 1000px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 60px;
-    align-items: center;
-  }
-
-  /* ... Mantenha o texto e o box iguais ... */
-  .frete-nac-text .section-label { color: var(--sage); }
-  .frete-nac-title { font-family: 'Playfair Display', serif; font-size: clamp(28px, 4vw, 42px); font-weight: 700; letter-spacing: -0.5px; margin-bottom: 16px; color: var(--charcoal); }
-  .frete-nac-title span { color: var(--gold); font-style: italic; }
-  .frete-nac-desc { font-size: 15px; color: var(--text-muted); line-height: 1.6; margin-bottom: 32px; }
-  .frete-nac-box { background: white; border: 1.5px solid var(--border); border-radius: 20px; padding: 32px; box-shadow: var(--shadow); }
-  .estado-select { width: 100%; padding: 14px 16px; border: 1.5px solid var(--border); border-radius: 12px; font-family: 'DM Sans', sans-serif; font-size: 15px; color: var(--charcoal); background: var(--cream); outline: none; transition: var(--transition); cursor: pointer; margin-bottom: 24px; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%237a7570' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 16px center; }
-  .estado-select:focus { border-color: var(--gold); }
-  .frete-resultado { display: flex; flex-direction: column; gap: 16px; display: none; animation: fadeUp 0.4s ease; }
-  .frete-status { display: flex; align-items: center; gap: 12px; padding: 16px; border-radius: 12px; font-weight: 600; }
-  .frete-status.gratis { background: rgba(122, 158, 135, 0.1); color: var(--sage); border: 1px solid rgba(122, 158, 135, 0.3); }
-  .frete-status.consultar { background: rgba(201, 98, 58, 0.08); color: var(--rust); border: 1px solid rgba(201, 98, 58, 0.2); }
-  .frete-status svg { flex-shrink: 0; }
-
-/* NOVO CSS DA ILUSTRAÇÃO DO MAPA */
-.mapa-brasil-wrapper {
-    position: relative;
-    width: 100%;
-    max-width: 380px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .mapa-brasil-img {
-    width: 100%;
-    height: auto;
-    opacity: 0.6;
-    /* Essa mágica transforma a imagem preta/cinza no tom dourado da sua marca */
-    filter: brightness(0) invert(72%) sepia(51%) saturate(464%) hue-rotate(6deg) brightness(92%) contrast(88%);
-  }
-
-  .map-pin {
-    position: absolute;
-    width: 14px; height: 14px;
-    background: var(--gold);
-    border-radius: 50%;
-    box-shadow: 0 0 0 4px rgba(201,168,76,0.3);
-    animation: pulse-pin 2s infinite;
-    z-index: 2;
-    transform: translate(-50%, -50%);
-  }
-
-  /* Coordenadas de SP e PR */
-  .pin-sp { top: 68.5%; left: 63%; }
-  .pin-pr { top: 75.5%; left: 58%; }
-
-  @keyframes pulse-pin {
-    0% { box-shadow: 0 0 0 0 rgba(201,168,76,0.6); }
-    70% { box-shadow: 0 0 0 15px rgba(201,168,76,0); }
-    100% { box-shadow: 0 0 0 0 rgba(201,168,76,0); }
-  }
-
 
   /* ── PRODUCT MODAL ─────────────────────────────── */
   .product-modal-overlay {
@@ -910,7 +807,7 @@
     cursor: pointer; display: flex; align-items: center; justify-content: center;
     z-index: 10; transition: var(--transition);
   }
-  .modal-close:hover { background: var(--charcoal); color: white; }
+  .modal-close:hover { background: var(--pink); color: white; border-color: var(--pink); }
 
   .modal-content-grid { display: grid; grid-template-columns: 1.2fr 1fr; }
 
@@ -923,7 +820,36 @@
   @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
   @keyframes zoomIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
 
-  @media (max-width: 850px) {
+  /* ── RESPONSIVE ─────────────────────────────── */
+  @media (max-width: 900px) {
+    .how-steps { grid-template-columns: 1fr; gap: 40px; }
+    .processo-timeline::before { left: 28px; transform: none; }
+    .processo-item { grid-template-columns: 56px 1fr; }
+    .processo-item.right .processo-card,
+    .processo-item.left .processo-card { grid-column: 2; }
+    .processo-item.right .processo-empty,
+    .processo-item.left .processo-empty { display: none; }
+    .processo-node { grid-column: 1; }
+    .contato-inner { grid-template-columns: 1fr; gap: 48px; }
+    .contato-items { grid-template-columns: 1fr; }
+    .frete-nac-inner { grid-template-columns: 1fr; }
+    .mapa-brasil-wrapper { display: none; }
+  }
+
+  @media (max-width: 768px) {
+    .hero-inner { grid-template-columns: 1fr; gap: 40px; }
+    .hero-visual { display: none; }
+    .hero-stats { flex-wrap: wrap; gap: 20px; }
+    .footer-inner { grid-template-columns: 1fr; gap: 32px; }
+    .footer-bottom { flex-direction: column; gap: 8px; text-align: center; }
+    .header-phone { display: none; }
+    .header-search { display: none; }
+    .porque-grid { grid-template-columns: 1fr; }
+  }
+
+  @media (max-width: 480px) {
+    .cart-drawer { width: 100vw; }
+    .products-grid { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
     .modal-content-grid { grid-template-columns: 1fr; }
     .modal-image-side { height: 300px; }
     .modal-info-side { padding: 24px; }
@@ -933,12 +859,14 @@
 </head>
 <body>
 
-<!-- HEADER -->
 <header>
   <div class="header-inner">
     <a class="logo" href="#">
-      <span class="logo-name">Confort<span>Max</span></span>
-      <span class="logo-sub">Estofados & Colchões</span>
+      <img src="imagens/logo.png" alt="IsaConfort" class="logo-img">
+      <div class="logo-text">
+        <span class="logo-name">Isa<span>Confort</span></span>
+        <span class="logo-sub">Estofados & Colchões</span>
+      </div>
     </a>
 
     <div class="header-search">
@@ -961,7 +889,6 @@
   </div>
 </header>
 
-<!-- HERO (mantido) -->
 <section class="hero">
   <div class="hero-inner">
     <div class="hero-content">
@@ -999,14 +926,12 @@
   </div>
 </section>
 
-<!-- CATEGORIES NAV -->
 <nav class="categories-nav">
   <div class="cats-inner" id="catsContainer">
     <button class="cat-btn active" onclick="filterCat('todos', this)">Todos</button>
   </div>
 </nav>
 
-<!-- PRODUTOS (mantido) -->
 <main class="main" id="produtos">
   <div class="notice" id="excelNotice">
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
@@ -1035,7 +960,6 @@
   </div>
 </main>
 
-<!-- COMO FUNCIONA -->
 <section class="how-it-works" id="como-funciona">
   <div class="how-inner">
     <p class="section-label">Simples assim</p>
@@ -1046,7 +970,6 @@
       <div class="how-step">
         <span class="step-number">01</span>
         <div class="step-icon-wrap">
-          <!-- Search/browse icon -->
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/><path d="M11 8v6M8 11h6"/></svg>
         </div>
         <h3 class="step-title">Escolha os Produtos</h3>
@@ -1056,7 +979,6 @@
       <div class="how-step">
         <span class="step-number">02</span>
         <div class="step-icon-wrap">
-          <!-- Cart/list icon -->
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
         </div>
         <h3 class="step-title">Monte o Pedido</h3>
@@ -1066,7 +988,6 @@
       <div class="how-step">
         <span class="step-number">03</span>
         <div class="step-icon-wrap">
-          <!-- WhatsApp / message icon -->
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><path d="M8 10h8M8 14h4"/></svg>
         </div>
         <h3 class="step-title">Feche pelo WhatsApp</h3>
@@ -1079,9 +1000,8 @@
 <section class="frete-nacional" id="frete">
   <div class="frete-nac-inner">
     
-<div class="mapa-brasil-wrapper">
+    <div class="mapa-brasil-wrapper">
       <img src="imagens/mapa_transparente.png" alt="Mapa do Brasil" class="mapa-brasil-img">
-      
       <div class="map-pin pin-sp" title="São Paulo"></div>
       <div class="map-pin pin-pr" title="Paraná"></div>
     </div>
@@ -1123,44 +1043,12 @@
           <option value="TO">Tocantins (TO)</option>
         </select>
 
-        <div id="resultadoFrete" class="frete-resultado">
-          </div>
+        <div id="resultadoFrete" class="frete-resultado"></div>
       </div>
-
     </div>
   </div>
 </section>
 
- <!-- FRETE BANNER
-<section class="frete-banner">
-  <div class="frete-inner">
-    <div class="frete-left">
-      <div class="frete-icon-wrap">
-        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="1" y="3" width="15" height="13" rx="2"/><path d="M16 8h4l3 5v3h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
-      </div>
-      <div class="frete-text">
-        <h3>Entrega e Montagem Grátis</h3>
-        <p>Para Arapongas e região — sem cobranças surpresa na hora da entrega.</p>
-      </div>
-    </div>
-    <div class="frete-items">
-      <div class="frete-item">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-        <span class="frete-item-text">Entrega agendada</span>
-      </div>
-      <div class="frete-item">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-        <span class="frete-item-text">Montagem incluída</span>
-      </div>
-      <div class="frete-item">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-        <span class="frete-item-text">Sem custo adicional</span>
-      </div>
-    </div>
-  </div>
-</section>  -->
-
-<!-- PROCESSO -->
 <section class="processo" id="processo">
   <div class="processo-inner">
     <div class="processo-header">
@@ -1171,7 +1059,6 @@
 
     <div class="processo-timeline">
 
-      <!-- Item 1 — esquerda -->
       <div class="processo-item left">
         <div class="processo-card">
           <p class="processo-tag">Dia 1</p>
@@ -1184,7 +1071,6 @@
         <div class="processo-empty"></div>
       </div>
 
-      <!-- Item 2 — direita -->
       <div class="processo-item right">
         <div class="processo-empty"></div>
         <div class="processo-node">
@@ -1197,7 +1083,6 @@
         </div>
       </div>
 
-      <!-- Item 3 — esquerda -->
       <div class="processo-item left">
         <div class="processo-card">
           <p class="processo-tag">Semana 1–2</p>
@@ -1210,7 +1095,6 @@
         <div class="processo-empty"></div>
       </div>
 
-      <!-- Item 4 — direita -->
       <div class="processo-item right">
         <div class="processo-empty"></div>
         <div class="processo-node">
@@ -1223,7 +1107,6 @@
         </div>
       </div>
 
-      <!-- Item 5 — esquerda -->
       <div class="processo-item left">
         <div class="processo-card">
           <p class="processo-tag">Entrega</p>
@@ -1240,60 +1123,47 @@
   </div>
 </section>
 
-<!-- POR QUE NOS ESCOLHER -->
 <section class="porque" id="porque">
   <div class="porque-inner">
     <div class="porque-header">
-      <p class="section-label" style="color:var(--gold)">Nossos diferenciais</p>
+      <p class="section-label" style="color:var(--pink)">Nossos diferenciais</p>
       <h2 class="porque-title">Por que nos <span>Escolher?</span></h2>
       <p class="porque-subtitle">Trabalho focado em qualidade real. Sem terceirização, sem enrolação.</p>
     </div>
 
     <div class="porque-grid">
       <div class="porque-card">
-        <div class="porque-icon">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-        </div>
+        <div class="porque-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
         <h3 class="porque-card-title">Entrega Ágil</h3>
         <p class="porque-card-desc">Prazos reais e cumpridos. Seu pedido sai em produção logo após a confirmação, sem demoras desnecessárias.</p>
       </div>
 
       <div class="porque-card">
-        <div class="porque-icon">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-        </div>
+        <div class="porque-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
         <h3 class="porque-card-title">Qualidade Garantida</h3>
         <p class="porque-card-desc">Todos os produtos com garantia de fábrica e suporte pós-venda. Trabalhamos só com materiais de primeira linha.</p>
       </div>
 
       <div class="porque-card">
-        <div class="porque-icon">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-        </div>
+        <div class="porque-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
         <h3 class="porque-card-title">Atendimento Direto</h3>
         <p class="porque-card-desc">Fale diretamente com nossa equipe, sem intermediários. Atendimento personalizado do começo ao fim.</p>
       </div>
 
       <div class="porque-card">
-        <div class="porque-icon">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-        </div>
+        <div class="porque-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
         <h3 class="porque-card-title">Sob Medida</h3>
         <p class="porque-card-desc">Fabricamos peças personalizadas conforme o seu espaço, dimensões e estilo. Seu ambiente do seu jeito.</p>
       </div>
 
       <div class="porque-card">
-        <div class="porque-icon">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-        </div>
+        <div class="porque-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
         <h3 class="porque-card-title">15+ Anos no Mercado</h3>
         <p class="porque-card-desc">Experiência que se traduz em produtos melhores e atendimento mais preciso. Mais de 5 mil clientes satisfeitos.</p>
       </div>
 
       <div class="porque-card">
-        <div class="porque-icon">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-        </div>
+        <div class="porque-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
         <h3 class="porque-card-title">Melhor Custo-Benefício</h3>
         <p class="porque-card-desc">Preço justo com qualidade premium. Parcelamento em até 12x sem juros no cartão de crédito.</p>
       </div>
@@ -1301,41 +1171,31 @@
   </div>
 </section>
 
-<!-- FEATURES / DIFERENCIAIS (mantido, sem emojis) -->
 <section class="features">
   <div class="features-inner">
     <div class="feature-item">
-      <div class="feature-icon">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="1" y="3" width="15" height="13" rx="2"/><path d="M16 8h4l3 5v3h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
-      </div>
+      <div class="feature-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="1" y="3" width="15" height="13" rx="2"/><path d="M16 8h4l3 5v3h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div>
       <h3 class="feature-title">Entrega e Montagem</h3>
       <p class="feature-desc">Entregamos e montamos em sua casa sem custo adicional para a região.</p>
     </div>
     <div class="feature-item">
-      <div class="feature-icon">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-      </div>
+      <div class="feature-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
       <h3 class="feature-title">Garantia de Qualidade</h3>
       <p class="feature-desc">Todos os produtos com garantia de fábrica e suporte pós-venda.</p>
     </div>
     <div class="feature-item">
-      <div class="feature-icon">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
-      </div>
+      <div class="feature-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></div>
       <h3 class="feature-title">Sob Medida</h3>
       <p class="feature-desc">Fabricamos peças personalizadas conforme seu espaço e gosto.</p>
     </div>
     <div class="feature-item">
-      <div class="feature-icon">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-      </div>
+      <div class="feature-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
       <h3 class="feature-title">Atendimento Direto</h3>
       <p class="feature-desc">Fale diretamente com nossa equipe via WhatsApp para tirar dúvidas.</p>
     </div>
   </div>
 </section>
 
-<!-- FAQ -->
 <section class="faq" id="faq">
   <div class="faq-inner">
     <div class="faq-header">
@@ -1349,9 +1209,7 @@
       <div class="faq-item">
         <button class="faq-question" onclick="toggleFaq(this)">
           Quanto tempo leva para receber meu pedido?
-          <span class="faq-toggle">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-          </span>
+          <span class="faq-toggle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
         </button>
         <div class="faq-answer"><p>O prazo médio é de 10 a 20 dias úteis após a confirmação do pedido, dependendo do produto e da disponibilidade em estoque. Peças sob medida podem levar um pouco mais. Você é informado do prazo exato na proposta.</p></div>
       </div>
@@ -1359,9 +1217,7 @@
       <div class="faq-item">
         <button class="faq-question" onclick="toggleFaq(this)">
           A entrega e montagem realmente são grátis?
-          <span class="faq-toggle">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-          </span>
+          <span class="faq-toggle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
         </button>
         <div class="faq-answer"><p>Sim! Para Arapongas e municípios vizinhos, a entrega e montagem são totalmente gratuitas. Para cidades mais distantes, o frete é combinado na hora da proposta. Nunca há surpresas.</p></div>
       </div>
@@ -1369,9 +1225,7 @@
       <div class="faq-item">
         <button class="faq-question" onclick="toggleFaq(this)">
           Quais são as formas de pagamento aceitas?
-          <span class="faq-toggle">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-          </span>
+          <span class="faq-toggle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
         </button>
         <div class="faq-answer"><p>Aceitamos cartão de crédito em até 12x sem juros, PIX com desconto especial, boleto bancário e dinheiro. O pagamento é combinado diretamente pelo WhatsApp com nossa equipe.</p></div>
       </div>
@@ -1379,9 +1233,7 @@
       <div class="faq-item">
         <button class="faq-question" onclick="toggleFaq(this)">
           Vocês fazem produtos personalizados?
-          <span class="faq-toggle">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-          </span>
+          <span class="faq-toggle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
         </button>
         <div class="faq-answer"><p>Sim! Fabricamos sofás, cabeceiras, poltronas e outros estofados em medidas e tecidos personalizados. Basta nos contar as dimensões e o estilo desejado. Fazemos uma proposta sem compromisso.</p></div>
       </div>
@@ -1389,9 +1241,7 @@
       <div class="faq-item">
         <button class="faq-question" onclick="toggleFaq(this)">
           Existe garantia nos produtos?
-          <span class="faq-toggle">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-          </span>
+          <span class="faq-toggle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
         </button>
         <div class="faq-answer"><p>Todos os produtos possuem garantia de fábrica contra defeitos de fabricação. Estofados têm garantia na estrutura e espuma. Colchões seguem a garantia do fabricante, geralmente de 3 a 5 anos.</p></div>
       </div>
@@ -1399,9 +1249,7 @@
       <div class="faq-item">
         <button class="faq-question" onclick="toggleFaq(this)">
           Posso pedir mais de um produto junto?
-          <span class="faq-toggle">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-          </span>
+          <span class="faq-toggle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
         </button>
         <div class="faq-answer"><p>Com certeza! Você pode adicionar quantos produtos quiser ao carrinho e finalizar tudo em um único pedido pelo WhatsApp. Combinamos entrega e montagem tudo junto, sem custo adicional.</p></div>
       </div>
@@ -1410,7 +1258,6 @@
   </div>
 </section>
 
-<!-- CONTATO -->
 <section class="contato" id="contato">
   <div class="contato-inner">
     <div>
@@ -1420,39 +1267,28 @@
 
       <div class="contato-items">
         <div class="contato-item">
-          <div class="contato-item-icon">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-          </div>
+          <div class="contato-item-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
           <div>
             <p class="contato-item-label">Localização</p>
             <p class="contato-item-value">Arapongas, Paraná — BR</p>
           </div>
         </div>
-
         <div class="contato-item">
-          <div class="contato-item-icon">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-          </div>
+          <div class="contato-item-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
           <div>
             <p class="contato-item-label">Horário</p>
             <p class="contato-item-value">Seg–Sáb: 8h–18h</p>
           </div>
         </div>
-
         <div class="contato-item">
-          <div class="contato-item-icon">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-          </div>
+          <div class="contato-item-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
           <div>
             <p class="contato-item-label">E-mail</p>
-            <p class="contato-item-value">contato@confortmax.com.br</p>
+            <p class="contato-item-value">contato@isaconfort.com.br</p>
           </div>
         </div>
-
         <div class="contato-item">
-          <div class="contato-item-icon">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.126.553 4.122 1.523 5.856L0 24l6.306-1.497A11.96 11.96 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.887 0-3.65-.484-5.19-1.335l-.37-.22-3.847.913.95-3.742-.241-.385A9.96 9.96 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
-          </div>
+          <div class="contato-item-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.126.553 4.122 1.523 5.856L0 24l6.306-1.497A11.96 11.96 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.887 0-3.65-.484-5.19-1.335l-.37-.22-3.847.913.95-3.742-.241-.385A9.96 9.96 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg></div>
           <div>
             <p class="contato-item-label">WhatsApp</p>
             <p class="contato-item-value">Resposta em até 24h</p>
@@ -1481,18 +1317,20 @@
         </div>
         <div class="contato-info-row">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-          contato@confortmax.com.br
+          contato@isaconfort.com.br
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- FOOTER (mantido) -->
 <footer>
   <div class="footer-inner">
     <div class="footer-brand">
-      <span style="font-family:'Playfair Display',serif;font-size:22px;font-weight:700">Confort<span style="color:var(--gold)">Max</span></span>
+      <div class="footer-logo">
+        <img src="imagens/logo.png" alt="IsaConfort" class="footer-logo-img">
+        <span class="footer-logo-text">Isa<span>Confort</span></span>
+      </div>
       <p>Há mais de 15 anos trazendo qualidade, conforto e beleza para os lares da região. Estofados artesanais e colchões de alta durabilidade.</p>
     </div>
     <div class="footer-col">
@@ -1519,28 +1357,23 @@
       </a>
       <a href="#">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle;margin-right:6px"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-        contato@confortmax.com.br
+        contato@isaconfort.com.br
       </a>
     </div>
   </div>
   <div class="footer-bottom">
-    <span>© 2026 ConfortMax Estofados & Colchões. Todos os direitos reservados.</span>
-
+    <span>© 2026 IsaConfort Estofados & Colchões. Todos os direitos reservados.</span>
   </div>
 </footer>
 
-<!-- FLOATING WHATSAPP -->
 <a class="float-wa" href="https://wa.me/5543999999999" target="_blank" title="Falar no WhatsApp">
   <svg width="28" height="28" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.126.553 4.122 1.523 5.856L0 24l6.306-1.497A11.96 11.96 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.887 0-3.65-.484-5.19-1.335l-.37-.22-3.847.913.95-3.742-.241-.385A9.96 9.96 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
 </a>
 
-<!-- TOAST -->
 <div class="toast" id="toast"></div>
 
-<!-- CART OVERLAY -->
 <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
 
-<!-- CART DRAWER -->
 <div class="cart-drawer" id="cartDrawer">
   <div class="cart-header">
     <h2 class="cart-title">
@@ -1615,7 +1448,7 @@ let cart = [];
 let currentCat = 'todos';
 let searchTerm = '';
 let showAllProducts = false;
-const LIMITE_INICIAL = 8; // Exibe 8 produtos inicialmente (2 fileiras)
+const LIMITE_INICIAL = 8;
 
 // ── CARREGAR EXCEL ─────────────────────────────────────────
 async function loadProducts() {
@@ -1650,8 +1483,8 @@ function hideNotice() { document.getElementById('excelNotice').classList.add('hi
 
 function showNoticeError(msg) {
   const notice = document.getElementById('excelNotice');
-  notice.style.borderColor = '#c9623a';
-  notice.style.background = '#fff5f0';
+  notice.style.borderColor = '#E4007F';
+  notice.style.background = '#fff0f8';
   document.getElementById('noticeText').innerHTML =
     `⚠️ Não foi possível carregar <strong>${EXCEL_FILE}</strong>. Certifique-se que o arquivo está na mesma pasta do site e abra via servidor local. <em style="font-size:12px;color:#7a7570">(${msg})</em>`;
 }
@@ -1672,7 +1505,7 @@ function buildCategoryNav() {
 
 function filterCat(cat, btn) {
   currentCat = cat;
-  showAllProducts = false; // Reseta a exibição
+  showAllProducts = false;
   document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
   if (btn) btn.classList.add('active');
   else {
@@ -1686,11 +1519,11 @@ function filterCat(cat, btn) {
 
 function filterProducts() {
   searchTerm = document.getElementById('searchInput').value.toLowerCase();
-  showAllProducts = false; // Reseta a exibição
+  showAllProducts = false;
   renderProducts();
 }
 
-// ── RENDERIZAR PRODUTOS & MODAL ─────────────────────────────
+// ── RENDERIZAR PRODUTOS ─────────────────────────────────────
 function renderProducts() {
   const grid = document.getElementById('productsGrid');
   const btnContainer = document.getElementById('verMaisContainer');
@@ -1718,7 +1551,6 @@ function renderProducts() {
     return;
   }
 
-  // Lógica do Ver Mais
   let productsToRender = filtered;
   
   if (btnContainer && btn) {
@@ -1746,7 +1578,6 @@ function toggleVerMais() {
   }
 }
 
-// O card agora tem o onclick para abrir o modal de detalhes
 function cardHTML(p, i) {
   const descPct = p.precoAntigo > p.preco ? Math.round((1 - p.preco / p.precoAntigo) * 100) : 0;
   const parcel = Math.round(p.preco / 12 * 100) / 100;
@@ -1776,13 +1607,10 @@ function cardHTML(p, i) {
     </div>`;
 }
 
-// Funções do Modal de Detalhes
 function openProductDetail(p) {
   const modal = document.getElementById('productModal');
-  if (!modal) return; // Segurança caso o HTML não esteja na página
-
+  if (!modal) return;
   const parcel = Math.round(p.preco / 12 * 100) / 100;
-
   document.getElementById('modalImg').src = p.imagem;
   document.getElementById('modalCat').textContent = p.categoria;
   document.getElementById('modalName').textContent = p.nome;
@@ -1790,7 +1618,6 @@ function openProductDetail(p) {
   document.getElementById('modalOldPrice').textContent = p.precoAntigo > p.preco ? formatBRL(p.precoAntigo) : '';
   document.getElementById('modalDesc').textContent = p.descricao;
   document.getElementById('modalParcel').textContent = `ou 12x de ${formatBRL(parcel)} sem juros no cartão`;
-  
   const pJson = JSON.stringify(p).replace(/"/g, '&quot;');
   document.getElementById('modalActionBtn').innerHTML = `
     <button class="btn-primary" style="width:100%; justify-content:center; padding:18px" onclick="addToCart(${pJson}); closeProductDetail()">
@@ -1798,9 +1625,8 @@ function openProductDetail(p) {
       Adicionar ao Carrinho
     </button>
   `;
-
   modal.style.display = 'flex';
-  document.body.style.overflow = 'hidden'; // Evita que a página role por trás do modal
+  document.body.style.overflow = 'hidden';
 }
 
 function closeProductDetail(e) {
@@ -1888,11 +1714,11 @@ function toggleCart() {
   document.body.style.overflow = drawer.classList.contains('open') ? 'hidden' : '';
 }
 
-// ── WHATSAPP (FINALIZAR COMPRA) ────────────────────────────
+// ── WHATSAPP ────────────────────────────────────────────────
 function sendToWhatsApp() {
   if (cart.length === 0) return;
   const total = cart.reduce((s, i) => s + i.preco * i.qty, 0);
-  let msg = `🛋️ *PEDIDO — ConfortMax Estofados*\n\nOlá! Gostaria de finalizar o seguinte pedido:\n\n`;
+  let msg = `🛋️ *PEDIDO — IsaConfort Estofados*\n\nOlá! Gostaria de finalizar o seguinte pedido:\n\n`;
   cart.forEach((item, idx) => {
     msg += `*${idx + 1}. ${item.nome}*\n   Quantidade: ${item.qty}x\n   Preço unit.: ${formatBRL(item.preco)}\n   Subtotal: ${formatBRL(item.preco * item.qty)}\n\n`;
   });
@@ -1925,9 +1751,7 @@ function verificarFrete() {
   const select = document.getElementById('estadoSelect');
   const resultado = document.getElementById('resultadoFrete');
   const estadoSigla = select.value;
-  
   if (!estadoSigla) return;
-
   const estadoNome = select.options[select.selectedIndex].text.replace(/\s\([A-Z]{2}\)/, '');
   resultado.style.display = 'flex';
 
@@ -1944,7 +1768,6 @@ function verificarFrete() {
   } else {
     const msgFrete = encodeURIComponent(`Olá! Gostaria de consultar o valor e o prazo do frete para: *${estadoNome}*.`);
     const linkWhats = `https://wa.me/${WHATSAPP_NUMBER}?text=${msgFrete}`;
-
     resultado.innerHTML = `
       <div class="frete-status consultar">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
