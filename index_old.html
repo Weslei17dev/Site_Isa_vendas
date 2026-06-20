@@ -70,7 +70,7 @@
 
   .header-search { flex: 1; max-width: 440px; position: relative; }
   .header-search input {
-    width: 100%; padding: 10px 80px 10px 44px;
+    width: 100%; padding: 10px 16px 10px 44px;
     border: 1.5px solid var(--border); border-radius: 50px;
     background: var(--cream); font-family: 'DM Sans', sans-serif;
     font-size: 14px; color: var(--charcoal); outline: none; transition: var(--transition);
@@ -78,14 +78,6 @@
   .header-search input:focus { border-color: var(--pink); background: white; box-shadow: 0 0 0 4px rgba(228,0,127,0.10); }
   .header-search input::placeholder { color: var(--text-muted); }
   .search-icon { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--text-muted); pointer-events: none; }
-  .btn-search {
-    position: absolute; right: 6px; top: 50%; transform: translateY(-50%);
-    background: var(--pink); color: white; border: none; border-radius: 50px;
-    padding: 6px 14px; font-family: 'DM Sans', sans-serif; font-size: 13px;
-    font-weight: 600; cursor: pointer; transition: var(--transition);
-    white-space: nowrap;
-  }
-  .btn-search:hover { background: var(--pink-dark); }
 
   .header-actions { display: flex; align-items: center; gap: 8px; }
 
@@ -807,7 +799,6 @@
   .product-modal-card {
     background: white; width: 100%; max-width: 900px; border-radius: 24px;
     position: relative; overflow: hidden; animation: zoomIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    max-height: 90vh; overflow-y: auto;
   }
 
   .modal-close {
@@ -820,50 +811,11 @@
 
   .modal-content-grid { display: grid; grid-template-columns: 1.2fr 1fr; }
 
-  /* ── CAROUSEL ── */
-  .modal-image-side { background: var(--cream); position: relative; }
-  .carousel-wrap { position: relative; height: 420px; overflow: hidden; }
-  .carousel-track { display: flex; height: 100%; transition: transform 0.4s cubic-bezier(0.4,0,0.2,1); }
-  .carousel-slide { min-width: 100%; height: 100%; flex-shrink: 0; }
-  .carousel-slide img { width: 100%; height: 100%; object-fit: cover; }
-  .carousel-btn {
-    position: absolute; top: 50%; transform: translateY(-50%);
-    width: 36px; height: 36px; border-radius: 50%;
-    background: rgba(255,255,255,0.9); border: 1px solid var(--border);
-    cursor: pointer; display: flex; align-items: center; justify-content: center;
-    z-index: 5; transition: var(--transition); color: var(--charcoal);
-    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-  }
-  .carousel-btn:hover { background: var(--pink); color: white; border-color: var(--pink); }
-  .carousel-btn.prev { left: 10px; }
-  .carousel-btn.next { right: 10px; }
-  .carousel-btn.hidden { display: none; }
-  .carousel-dots {
-    display: flex; justify-content: center; gap: 6px;
-    padding: 10px; background: var(--cream);
-  }
-  .carousel-dot {
-    width: 8px; height: 8px; border-radius: 50%;
-    background: var(--border); border: none; cursor: pointer;
-    transition: var(--transition); padding: 0;
-  }
-  .carousel-dot.active { background: var(--pink); width: 20px; border-radius: 4px; }
-
-  /* ── DIMENSIONS ── */
-  .modal-dimensions {
-    display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 16px;
-  }
-  .dim-badge {
-    display: flex; align-items: center; gap: 6px;
-    background: var(--cream); border: 1px solid var(--border);
-    border-radius: 8px; padding: 6px 12px; font-size: 13px;
-    color: var(--charcoal); font-weight: 500;
-  }
-  .dim-badge svg { color: var(--pink); flex-shrink: 0; }
-  .dim-badge span { font-weight: 700; }
+  .modal-image-side { background: var(--cream); height: 500px; }
+  .modal-image-side img { width: 100%; height: 100%; object-fit: cover; }
 
   .modal-info-side { padding: 40px; display: flex; flex-direction: column; }
-  .modal-description { font-size: 15px; color: var(--text-muted); line-height: 1.7; margin-bottom: 16px; flex-grow: 1; }
+  .modal-description { font-size: 15px; color: var(--text-muted); line-height: 1.7; margin-bottom: 30px; flex-grow: 1; }
 
   @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
   @keyframes zoomIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
@@ -919,8 +871,7 @@
 
     <div class="header-search">
       <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-      <input type="text" id="searchInput" placeholder="Buscar produtos..." oninput="filterProducts()" onkeydown="if(event.key==='Enter') searchAndScroll()">
-      <button class="btn-search" onclick="searchAndScroll()">Buscar</button>
+      <input type="text" id="searchInput" placeholder="Buscar produtos..." oninput="filterProducts()">
     </div>
 
     <div class="header-actions">
@@ -1358,26 +1309,17 @@
     
     <div class="modal-content-grid">
       <div class="modal-image-side">
-        <div class="carousel-wrap" id="carouselWrap">
-          <div class="carousel-track" id="carouselTrack"></div>
-          <button class="carousel-btn prev hidden" id="carouselPrev" onclick="carouselMove(-1)">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
-          </button>
-          <button class="carousel-btn next hidden" id="carouselNext" onclick="carouselMove(1)">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
-          </button>
-        </div>
-        <div class="carousel-dots" id="carouselDots"></div>
+        <img id="modalImg" src="" alt="">
       </div>
       <div class="modal-info-side">
         <p class="product-cat" id="modalCat"></p>
-        <h2 class="product-name" id="modalName" style="font-size: 26px; -webkit-line-clamp: unset;"></h2>
-        <div class="product-pricing" style="margin: 16px 0;">
-          <span class="price-current" id="modalPrice" style="font-size: 28px;"></span>
+        <h2 class="product-name" id="modalName" style="font-size: 28px; -webkit-line-clamp: unset;"></h2>
+        <div class="product-pricing" style="margin: 20px 0;">
+          <span class="price-current" id="modalPrice" style="font-size: 32px;"></span>
           <span class="price-old" id="modalOldPrice"></span>
         </div>
         <p class="modal-description" id="modalDesc"></p>
-        <div class="modal-dimensions" id="modalDimensions"></div>
+        
         <div class="modal-footer">
           <p class="price-parcel" id="modalParcel" style="margin-bottom: 20px;"></p>
           <div id="modalActionBtn"></div>
@@ -1418,12 +1360,6 @@ async function loadProducts() {
         descricao: r.descricao || '',
         imagem: r.imagem_url || 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=600',
         destaque: String(r.destaque || '').toUpperCase() === 'SIM',
-        largura: r.largura_cm || '',
-        altura: r.altura_cm || '',
-        profundidade: r.profundidade_cm || '',
-        imagem1: r.imagem_1 || '',
-        imagem2: r.imagem_2 || '',
-        imagem3: r.imagem_3 || '',
       }));
     buildCategoryNav();
     renderProducts();
@@ -1477,11 +1413,6 @@ function filterProducts() {
   searchTerm = document.getElementById('searchInput').value.toLowerCase();
   showAllProducts = false;
   renderProducts();
-}
-
-function searchAndScroll() {
-  filterProducts();
-  document.getElementById('produtos').scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
 // ── RENDERIZAR PRODUTOS ─────────────────────────────────────
@@ -1568,79 +1499,20 @@ function cardHTML(p, i) {
     </div>`;
 }
 
-// ── CAROUSEL STATE ─────────────────────────────────────────
-let carouselIndex = 0;
-let carouselImages = [];
-
-function buildCarousel(images) {
-  carouselImages = images.filter(Boolean);
-  carouselIndex = 0;
-  const track = document.getElementById('carouselTrack');
-  const dots = document.getElementById('carouselDots');
-  const prev = document.getElementById('carouselPrev');
-  const next = document.getElementById('carouselNext');
-
-  track.innerHTML = carouselImages.map(src => `
-    <div class="carousel-slide">
-      <img src="${src}" alt="" onerror="this.src='https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=600'">
-    </div>`).join('');
-
-  dots.innerHTML = carouselImages.length > 1
-    ? carouselImages.map((_, i) => `<button class="carousel-dot${i===0?' active':''}" onclick="carouselGoTo(${i})"></button>`).join('')
-    : '';
-
-  const multi = carouselImages.length > 1;
-  prev.classList.toggle('hidden', !multi);
-  next.classList.toggle('hidden', !multi);
-  updateCarouselPos();
-}
-
-function carouselMove(dir) {
-  carouselIndex = (carouselIndex + dir + carouselImages.length) % carouselImages.length;
-  updateCarouselPos();
-}
-
-function carouselGoTo(i) {
-  carouselIndex = i;
-  updateCarouselPos();
-}
-
-function updateCarouselPos() {
-  document.getElementById('carouselTrack').style.transform = `translateX(-${carouselIndex * 100}%)`;
-  document.querySelectorAll('.carousel-dot').forEach((d, i) => d.classList.toggle('active', i === carouselIndex));
-}
-
 function openProductDetail(p) {
   const modal = document.getElementById('productModal');
   if (!modal) return;
   const parcel = Math.round(p.preco / 12 * 100) / 100;
-
-  // Build carousel images
-  const imgs = [p.imagem, p.imagem1, p.imagem2, p.imagem3];
-  buildCarousel(imgs);
-
+  document.getElementById('modalImg').src = p.imagem;
   document.getElementById('modalCat').textContent = p.categoria;
   document.getElementById('modalName').textContent = p.nome;
   document.getElementById('modalPrice').textContent = formatBRL(p.preco);
   document.getElementById('modalOldPrice').textContent = p.precoAntigo > p.preco ? formatBRL(p.precoAntigo) : '';
   document.getElementById('modalDesc').textContent = p.descricao;
   document.getElementById('modalParcel').textContent = `ou 12x de ${formatBRL(parcel)} sem juros no cartão`;
-
-  // Dimensions
-  const dimsEl = document.getElementById('modalDimensions');
-  const dims = [];
-  if (p.largura) dims.push({ icon: '↔', label: 'Largura', val: p.largura + ' cm' });
-  if (p.altura) dims.push({ icon: '↕', label: 'Altura', val: p.altura + ' cm' });
-  if (p.profundidade) dims.push({ icon: '⇅', label: 'Profundidade', val: p.profundidade + ' cm' });
-  dimsEl.innerHTML = dims.length ? dims.map(d => `
-    <div class="dim-badge">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 3v18"/></svg>
-      ${d.label}: <span>${d.val}</span>
-    </div>`).join('') : '';
-
   const pJson = JSON.stringify(p).replace(/"/g, '&quot;');
   document.getElementById('modalActionBtn').innerHTML = `
-    <button class="btn-primary" style="width:100%; justify-content:center; padding:16px" onclick="addToCart(${pJson}); closeProductDetail()">
+    <button class="btn-primary" style="width:100%; justify-content:center; padding:18px" onclick="addToCart(${pJson}); closeProductDetail()">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
       Adicionar ao Carrinho
     </button>
@@ -1807,12 +1679,12 @@ function verificarFrete() {
 // ── FALLBACK ───────────────────────────────────────────────
 function renderFallback() {
   allProducts = [
-    { id: 1, nome: "Sofá Retrátil 3 Lugares Premium", categoria: "Sofás", preco: 2890, precoAntigo: 3490, descricao: "Sofá retrátil e reclinável com tecido suede importado, espuma D33, pés em madeira maciça.", imagem: "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=600", destaque: true, largura: '', altura: '', profundidade: '', imagem1: '', imagem2: '', imagem3: '' },
-    { id: 2, nome: "Sofá Canto L Grande", categoria: "Sofás", preco: 4290, precoAntigo: 5200, descricao: "Sofá canto formato L com chaise, tecido veludo premium, 7 lugares.", imagem: "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=600", destaque: true, largura: '', altura: '', profundidade: '', imagem1: '', imagem2: '', imagem3: '' },
-    { id: 3, nome: "Colchão Molas Ensacadas King Size", categoria: "Colchões", preco: 3190, precoAntigo: 3800, descricao: "Colchão com sistema de molas ensacadas, pillow top duplo, espuma viscoelástica. King 193x203cm.", imagem: "https://images.unsplash.com/photo-1631157769375-11e148452a97?w=600", destaque: true, largura: '', altura: '', profundidade: '', imagem1: '', imagem2: '', imagem3: '' },
-    { id: 4, nome: "Poltrona Massageadora Recliner", categoria: "Poltronas", preco: 1890, precoAntigo: 2290, descricao: "Poltrona reclinável com função massagem, couro ecológico premium.", imagem: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=600", destaque: false, largura: '', altura: '', profundidade: '', imagem1: '', imagem2: '', imagem3: '' },
-    { id: 5, nome: "Colchão Casal Ortopédico D45", categoria: "Colchões", preco: 1290, precoAntigo: 0, descricao: "Colchão ortopédico casal espuma D45 alta densidade, 138x188cm.", imagem: "https://images.unsplash.com/photo-1631157769375-11e148452a97?w=600", destaque: false, largura: '', altura: '', profundidade: '', imagem1: '', imagem2: '', imagem3: '' },
-    { id: 6, nome: "Sofá 2 Lugares Veludo", categoria: "Sofás", preco: 1490, precoAntigo: 1890, descricao: "Sofá 2 lugares em veludo azul royal, pés dourados em metal, espuma D33.", imagem: "https://images.unsplash.com/photo-1540574163026-643ea20ade25?w=600", destaque: false, largura: '', altura: '', profundidade: '', imagem1: '', imagem2: '', imagem3: '' },
+    { id: 1, nome: "Sofá Retrátil 3 Lugares Premium", categoria: "Sofás", preco: 2890, precoAntigo: 3490, descricao: "Sofá retrátil e reclinável com tecido suede importado, espuma D33, pés em madeira maciça.", imagem: "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=600", destaque: true },
+    { id: 2, nome: "Sofá Canto L Grande", categoria: "Sofás", preco: 4290, precoAntigo: 5200, descricao: "Sofá canto formato L com chaise, tecido veludo premium, 7 lugares.", imagem: "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=600", destaque: true },
+    { id: 3, nome: "Colchão Molas Ensacadas King Size", categoria: "Colchões", preco: 3190, precoAntigo: 3800, descricao: "Colchão com sistema de molas ensacadas, pillow top duplo, espuma viscoelástica. King 193x203cm.", imagem: "https://images.unsplash.com/photo-1631157769375-11e148452a97?w=600", destaque: true },
+    { id: 4, nome: "Poltrona Massageadora Recliner", categoria: "Poltronas", preco: 1890, precoAntigo: 2290, descricao: "Poltrona reclinável com função massagem, couro ecológico premium.", imagem: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=600", destaque: false },
+    { id: 5, nome: "Colchão Casal Ortopédico D45", categoria: "Colchões", preco: 1290, precoAntigo: 0, descricao: "Colchão ortopédico casal espuma D45 alta densidade, 138x188cm.", imagem: "https://images.unsplash.com/photo-1631157769375-11e148452a97?w=600", destaque: false },
+    { id: 6, nome: "Sofá 2 Lugares Veludo", categoria: "Sofás", preco: 1490, precoAntigo: 1890, descricao: "Sofá 2 lugares em veludo azul royal, pés dourados em metal, espuma D33.", imagem: "https://images.unsplash.com/photo-1540574163026-643ea20ade25?w=600", destaque: false },
   ];
   buildCategoryNav();
   renderProducts();
